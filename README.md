@@ -1,1 +1,1 @@
-===This README is WEAK === 
+This README is WEAK
