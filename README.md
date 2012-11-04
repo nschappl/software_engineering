@@ -64,7 +64,8 @@ sudo nano easy-docs
 ```
 
 Copy the contents of the code snippet below
-```<VirtualHost *:80>
+```
+<VirtualHost *:80>
     DocumentRoot "/home/USERNAME/developer/software_engineering"
     ServerName dev.localhost.com
 
