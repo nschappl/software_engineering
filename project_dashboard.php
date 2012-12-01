@@ -9,8 +9,8 @@ if(!$fgmembersite->CheckLogin())
     exit;
 }
 
-$user_name = "";
-$password = "";
+$user_name = "jgiunco";
+$password = "carreraGT1";
 
 $client = new Github\Client();
 $client->authenticate($user_name, $password, Github\Client::AUTH_HTTP_PASSWORD);
