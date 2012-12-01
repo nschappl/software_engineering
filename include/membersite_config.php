@@ -13,9 +13,9 @@ $fgmembersite->SetAdminEmail('user11@user11.com');
 //hostname, user name, password, database name and table name
 //note that the script will create the table (for example, fgusers in this case)
 //by itself on submitting register.php for the first time
-$fgmembersite->InitDB(/*hostname*/'dev.localhost.com',
+$fgmembersite->InitDB(/*hostname*/'localhost',
                       /*username*/'root',
-                      /*password*/'',
+                      /*password*/'root',
                       /*database name*/'easy_doc',
                       /*table name*/'users');
 
