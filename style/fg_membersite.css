@@ -3,6 +3,72 @@ Registration/Login Form by html-form-guide.com
 You can customize all the aspects of the form in this style sheet
 */
 
+/* Header */
+
+header#header {
+    height: 55px;
+    width: 100%;
+    background: #222222 url(../images/header_bg.png) repeat-x;
+}
+
+header#header h1.site_title, header#header h2.section_title {
+    float: left;
+    margin: 0;
+    font-size: 22px;
+    display: block;
+    width: 23%;
+    height: 55px;
+    font-weight: normal;
+    text-align: left;
+    text-indent: 1.8%;
+    line-height: 55px;
+    color: #fff;
+    text-shadow: 0 -1px 0 #000;
+}
+
+header#header h1.site_title a {
+    color: #fff;
+    text-decoration: none;
+}
+
+header#header h2.section_title {
+    text-align: center;
+    text-indent: 4.5%;
+    width: 68%;
+    background: url(../images/header_shadow.png) no-repeat left top;
+}
+
+.btn_view_site {
+    float: left;
+    width: 9%;
+}
+.btn_view_site a {
+    display: block;
+    margin-top: 12px;
+    width: 91px;
+    height: 27px;
+    background: url(../images/btn_view_site.png) no-repeat;
+    text-align: center;
+    line-height: 29px;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 #000;}
+
+.btn_view_site a:hover {
+    background-position: 0 -27px;
+}
+
+html,body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+    background: #F8F8F8;
+    font-size: 12px;
+}
+
+
+
 #fg_membersite fieldset
 {
    width: 230px;
@@ -11,13 +77,13 @@ You can customize all the aspects of the form in this style sheet
 -moz-border-radius: 10px;
 -webkit-border-radius: 10px;
 -khtml-border-radius: 10px;
-border-radius: 10px;   
+border-radius: 10px;
 }
 
 #fg_membersite legend, #fg_membersite h2
 {
    font-family : Arial, sans-serif;
-   font-size: 1.3em;
+   font-size: 1.8em;
    font-weight:bold;
    color:#333;
 }
@@ -25,7 +91,7 @@ border-radius: 10px;
 #fg_membersite label
 {
    font-family : Arial, sans-serif;
-   font-size:0.8em;
+   font-size:1.3em;
    font-weight: bold;
 }
 
@@ -33,10 +99,10 @@ border-radius: 10px;
 #fg_membersite input[type="password"]
 {
   font-family : Arial, Verdana, sans-serif;
-  font-size: 0.8em;
+  font-size: 1.3em;
   line-height:140%;
-  color : #000; 
-  padding : 3px; 
+  color : #000;
+  padding : 3px;
   border : 1px solid #999;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -88,8 +154,8 @@ border-radius: 10px;
 
 #fg_membersite .error
 {
-   font-family: Verdana, Arial, sans-serif; 
-   font-size: 0.7em;
+   font-family: Verdana, Arial, sans-serif;
+   font-size: 1.3em;
    color: #900;
    background-color : #ffff00;
 }
@@ -112,16 +178,16 @@ border-radius: 10px;
 #fg_membersite fieldset#antispam legend
 {
    font-family : Arial, sans-serif;
-   font-size: 0.8em;
+   font-size: 1.3em;
    font-weight:bold;
-   color:#333;   
+   color:#333;
 }
 
 #fg_membersite .short_explanation
 {
    font-family : Arial, sans-serif;
-   font-size: 0.6em;
-   color:#333;   
+   font-size: 1.0em;
+   color:#333;
 }
 
 /* spam_trap: This input is hidden. This is here to trick the spam bots*/
@@ -137,7 +203,7 @@ border-radius: 10px;
    font-size: 0.3em;
    opacity: .2;
    -moz-opacity: .2;
-   filter: alpha(opacity=20);   
+   filter: alpha(opacity=20);
 }
 #fg_membersite  #fg_crdiv p
 {
@@ -163,4 +229,12 @@ padding-bottom:10px;
    font-size: 1.5em;
    font-weight:bold;
    color:#333;
+}
+
+
+div.center {
+    width: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
