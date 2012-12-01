@@ -14,7 +14,7 @@ if(isset($_POST['submitted']))
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
-    <title>Contact us</title>
+    <title>EasyDoc Registration</title>
     <link rel="STYLESHEET" type="text/css" href="style/fg_membersite.css" />
     <script type='text/javascript' src='scripts/gen_validatorv31.js'></script>
     <link rel="STYLESHEET" type="text/css" href="style/pwdwidget.css" />
@@ -22,8 +22,20 @@ if(isset($_POST['submitted']))
 </head>
 <body>
 
+        <header id="header">
+                <hgroup>
+                        <h1 class="site_title"><a href="index.php">EasyDoc</a></h1>
+                        <h2 class="section_title">&nbsp;</h2>
+                        <div class="btn_view_site">
+                                <a href="http://www.boozallen.com">BAH Home</a>
+                        </div>
+                </hgroup>
+        </header>
+<br />
+<br />
+<br />
 <!-- Form Code Start -->
-<div id='fg_membersite'>
+<div id='fg_membersite' class="center">
 <form id='register' action='<?php echo $fgmembersite->GetSelfScript(); ?>' method='post' accept-charset='UTF-8'>
 <fieldset >
 <legend>Register</legend>

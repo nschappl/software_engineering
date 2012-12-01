@@ -36,7 +36,7 @@ if(!$fgmembersite->CheckLogin())
 
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title"><a href="index.html">Easy Doc</a></h1>
+			<h1 class="site_title"><a href="index.php">Easy Doc</a></h1>
 			<h2 class="section_title">Documentation</h2>
 			<div class="btn_view_site">
 				<a href="http://www.boozallen.com">BAH Home</a>
