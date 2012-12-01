@@ -21,6 +21,8 @@ class gitclass {
         
     }
     
+    function login($username) {
+    }
     
     function addRepo()
     {

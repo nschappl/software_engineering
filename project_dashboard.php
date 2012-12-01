@@ -1,11 +1,20 @@
 <?PHP
 require_once("./include/membersite_config.php");
+require_once("./include/gitclass_config.php");
+require_once("./php-github-api/vendor/autoload.php");
 
 if(!$fgmembersite->CheckLogin())
 {
     $fgmembersite->RedirectToURL("./login.php");
     exit;
 }
+
+$user_name = "";
+$password = "";
+
+$client = new Github\Client();
+$client->authenticate($user_name, $password, Github\Client::AUTH_HTTP_PASSWORD);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +45,7 @@ if(!$fgmembersite->CheckLogin())
 
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title"><a href="index.html">Easy Doc</a></h1>
+			<h1 class="site_title"><a href="index.php">Easy Doc</a></h1>
 			<h2 class="section_title">Project Dashboard</h2>
 			<div class="btn_view_site">
 				<a href="http://www.boozallen.com">BAH Home</a>
@@ -94,14 +103,36 @@ if(!$fgmembersite->CheckLogin())
                 <article class="module width_half">
 		    <header><h3>GitHub Projects</h3></header>
                     <div class="module_content">
-                        <p><br />show github projects<br />- ability to track these<br /><br /><br /></p>
+
+                    	<?php 
+								$repositories = $client->api('current_user')->repositories();
+								echo '<table class="table table-bordered">';
+								foreach($repositories as $repo) {
+									echo '<tr>';
+									echo '<td>'.$repo['name'].'</td>';
+      								echo '</tr>';
+								}
+								echo '</table>';
+                    	?>
                     </div>
                 </article><!-- end of github projects article -->
 
 		<article class="module width_half">
                     <header><h3>Tracked EasyDoc Projects</h3></header>
                     <div class="module_content">
-                        <p><br />show tracked easydoc projects<br />- ability to untrack<br /><br /><br /></p>
+    					<?php $repos = $fggitclass->getRepos();
+
+     					echo '<table class="table table-bordered">';
+     					foreach ($repos as $repo) {
+      						echo '<tr>';
+							echo '<td>'.$repo['id_repo'].'</td>';
+							echo '<td>'.$repo['name'].'</td>';
+      						echo '</tr>';
+     					}
+     
+    	 				echo '</table>';
+    
+    					?>
                     </div>
                 </article><!-- end of messages article -->
 
