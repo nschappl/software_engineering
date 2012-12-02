@@ -13,7 +13,7 @@
 
        if($fggitclass->addRepo())
        {
-	  $fgmembersite->RedirectToURL("repo_manager.php");
+	  $fgmembersite->RedirectToURL("index.php");
        }
   
   }
