@@ -70,7 +70,7 @@ if(isset($_POST['github_login'])){
 			<a class="logout_user" href="logout.php" title="Logout">Logout</a>
 		</div>
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="index.html">Projects</a></article>
+			<article class="breadcrumbs"><a href="index.php">Projects</a></article>
 		</div>
 	</section><!-- end of secondary bar -->
 
@@ -136,8 +136,11 @@ if(isset($_POST['github_login'])){
 								foreach($repositories as $repo) {
 									echo '<tr>';
 									echo '<td>'.$repo['name'].'</td>';
+									echo '<td><form class="form-inline" action="/repo_manager.php" method="post"/><input type="hidden" name="submitted" id="submitted" value="1"/><input type="hidden" name="repo_url" id="repo_url" value="'.$repo['html_url'].'"/><button type="submit" class="btn">Add</button></form></td>';
       								echo '</tr>';
 								}
+								
+								
 								echo '</table>';
                     	?>
                     </div>

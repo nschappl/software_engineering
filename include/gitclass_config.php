@@ -12,7 +12,7 @@ $fggitclass = new gitclass ();
 //by itself on submitting register.php for the first time
 $fggitclass->InitDB(/*hostname*/'dev.localhost.com',
                       /*username*/'root',
-                      /*password*/'',
+                      /*password*/'root',
                       /*database name*/'easy_doc',
                       /*table name*/'repo_library');
 
