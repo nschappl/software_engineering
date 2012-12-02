@@ -9,11 +9,13 @@ if(!$fgmembersite->CheckLogin())
     exit;
 }
 
-$user_name = "benfuja";
-$password = "Ben66756A61";
+if(isset($_POST['github_login'])){
+	$user_name = $_POST['github_username'];
+	$password = $_POST['github_password'];
 
-$client = new Github\Client();
-$client->authenticate($user_name, $password, Github\Client::AUTH_HTTP_PASSWORD);
+	$client = new Github\Client();
+	$client->authenticate($user_name, $password, Github\Client::AUTH_HTTP_PASSWORD);
+}
 
 ?>
 <!DOCTYPE html>
@@ -93,10 +95,19 @@ $client->authenticate($user_name, $password, Github\Client::AUTH_HTTP_PASSWORD);
 
 	<section id="main" class="column">
 
-                <article class="module width_full">
+                <article class="module width_half">
                     <header><h3>GitHub Integration</h3></header>
                     <div class="module_content">
-                        <p>put in the github api authentication stuff</p>
+                        <p>Enter your GitHub Credentials to connect with your repositories:</p>
+						<img width="180px" src="./images/github-logo.png">
+						<br /><br />
+						<form action="project_dashboard.php" method="post">
+							<div>Username:<input style="margin-left: 10px;" type="text" name="github_username"></div>
+							<div>Password:<input style="margin-left: 11px;" type="password" name="github_password"></div>
+							<input type='hidden' name='github_login' />
+							<br />
+							<input type="submit" value="Connect to GitHub" name='github_login'>
+						</form>
                     </div>
                 </article>
 
