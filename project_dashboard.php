@@ -15,6 +15,15 @@ if(isset($_POST['github_login'])){
 
 	$client = new Github\Client();
 	$client->authenticate($user_name, $password, Github\Client::AUTH_HTTP_PASSWORD);
+	
+	try{
+		$client->api('current_user');
+		$authenticated = 1;
+	}catch(){
+		$authenticated = 0;
+	}
+	
+	var_dump($authenticated);
 }
 
 ?>
@@ -96,12 +105,18 @@ if(isset($_POST['github_login'])){
 	<section id="main" class="column">
 
                 <article class="module width_half">
-                    <header><h3>GitHub Integration</h3></header>
+                    <header><h3>GitHub Authentication</h3></header>
                     <div class="module_content">
                         <p>Enter your GitHub Credentials to connect with your repositories:</p>
 						<img width="180px" src="./images/github-logo.png">
 						<br /><br />
+
 						<form action="project_dashboard.php" method="post">
+							<?php
+								if ( (isset($_POST['github_login'])) ){ 
+									echo "<div style=\"color:red;\">Invalid Github Username/Password</div>";
+								}
+							?>
 							<div>Username:<input style="margin-left: 10px;" type="text" name="github_username"></div>
 							<div>Password:<input style="margin-left: 11px;" type="password" name="github_password"></div>
 							<input type='hidden' name='github_login' />
@@ -115,7 +130,7 @@ if(isset($_POST['github_login'])){
 		    <header><h3>GitHub Projects</h3></header>
                     <div class="module_content">
 
-                    	<?php 
+                    	<?php
 								$repositories = $client->api('current_user')->repositories();
 								echo '<table class="table table-bordered">';
 								foreach($repositories as $repo) {
@@ -131,7 +146,7 @@ if(isset($_POST['github_login'])){
 		<article class="module width_half">
                     <header><h3>Tracked EasyDoc Projects</h3></header>
                     <div class="module_content">
-    					<?php $repos = $fggitclass->getRepos();
+    					<?php //$repos = $fggitclass->getRepos();
 
      					echo '<table class="table table-bordered">';
      					foreach ($repos as $repo) {
