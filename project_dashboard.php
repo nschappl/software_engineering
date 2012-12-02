@@ -15,15 +15,12 @@ if(isset($_POST['github_login'])){
 
 	$client = new Github\Client();
 	$client->authenticate($user_name, $password, Github\Client::AUTH_HTTP_PASSWORD);
-	
 	try{
-		$client->api('current_user');
+		$repositories = $client->api('current_user')->repositories();
 		$authenticated = 1;
-	}catch(){
+	}catch (Exception $e){
 		$authenticated = 0;
 	}
-	
-	var_dump($authenticated);
 }
 
 ?>
@@ -113,7 +110,7 @@ if(isset($_POST['github_login'])){
 
 						<form action="project_dashboard.php" method="post">
 							<?php
-								if ( (isset($_POST['github_login'])) ){ 
+								if ( (isset($_POST['github_login'])) && ($authenticated == 0)){ 
 									echo "<div style=\"color:red;\">Invalid Github Username/Password</div>";
 								}
 							?>
