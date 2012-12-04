@@ -9,6 +9,8 @@ if(!$fgmembersite->CheckLogin())
     exit;
 }
 
+$authenticated = 0;
+
 if(isset($_POST['github_login'])){
 	$user_name = $_POST['github_username'];
 	$password = $_POST['github_password'];
@@ -45,12 +47,28 @@ if(isset($_POST['github_login'])){
                 $('.column').equalHeight();
             });
         </script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#github_success").hide();
+			
+			//if the user has submitted the github login form
+			if (<?php echo $authenticated ?> == "1"){
+				$("#github_login_module").hide();
+				$("#github_success").show();
+			}
+			
+
+			
+			//$("a").click(function(event){
+			 //alert("Thanks for visiting!");
+		   //});
+		 });	
+	</script>
 
 </head>
 
 
 <body>
-
 	<header id="header">
 		<hgroup>
 			<h1 class="site_title"><a href="index.php">Easy Doc</a></h1>
@@ -101,7 +119,7 @@ if(isset($_POST['github_login'])){
 
 	<section id="main" class="column">
 
-                <article class="module width_half">
+                <article id="github_login_module" class="module width_half">
                     <header><h3>GitHub Authentication</h3></header>
                     <div class="module_content">
                         <p>Enter your GitHub Credentials to connect with your repositories:</p>
@@ -122,8 +140,23 @@ if(isset($_POST['github_login'])){
 						</form>
                     </div>
                 </article>
+				
+                <article id="github_success" class="module width_half">
+                    <header><h3>GitHub Authentication</h3></header>
+                    <div class="module_content">
+						<img width="180px" src="./images/github-logo.png">
+						<br />
+                        <p>You are successfully logged into Github as <b>
+						<?php if (isset($_POST['github_username']))
+						{
+							echo $_POST['github_username'];
+						}
+						?></b> <a style="float: right;" href="./project_dashboard.php">Logout</a></p>
+						
+                    </div>
+                </article>
 
-                <article class="module width_half">
+            <article class="module width_half">
 		    <header><h3>GitHub Projects</h3></header>
                     <div class="module_content">
 
@@ -141,7 +174,7 @@ if(isset($_POST['github_login'])){
 								echo '</table>';
                     	?>
                     </div>
-                </article><!-- end of github projects article -->
+            </article><!-- end of github projects article -->
 
 		<article class="module width_half">
                     <header><h3>Tracked EasyDoc Projects</h3></header>
