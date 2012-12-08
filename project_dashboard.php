@@ -1,29 +1,47 @@
 <?PHP
-require_once("./include/membersite_config.php");
-require_once("./include/gitclass_config.php");
-require_once("./php-github-api/vendor/autoload.php");
-
-if(!$fgmembersite->CheckLogin())
-{
-    $fgmembersite->RedirectToURL("./login.php");
-    exit;
-}
-
-$authenticated = 0;
-
-if(isset($_POST['github_login'])){
-	$user_name = $_POST['github_username'];
-	$password = $_POST['github_password'];
-
-	$client = new Github\Client();
-	$client->authenticate($user_name, $password, Github\Client::AUTH_HTTP_PASSWORD);
-	try{
-		$repositories = $client->api('current_user')->repositories();
-		$authenticated = 1;
-	}catch (Exception $e){
-		$authenticated = 0;
+	require_once("./include/membersite_config.php");
+	require_once("./include/gitclass_config.php");
+	require_once("./php-github-api/vendor/autoload.php");
+	
+	echo "Starting...";
+	if(!$fgmembersite->CheckLogin())
+	{
+		$fgmembersite->RedirectToURL("./login.php");
+		exit;
 	}
-}
+	if(!$_COOKIE){
+		echo "NO COOKIE...";
+	    setcookie("gh_authenticated","no",time()+60*60*24*30);
+        setcookie("gh_username","-",time()+60*60*24*30);
+        setcookie("gh_password","-",time()+60*60*24*30);
+		$fgmembersite->RedirectToURL("./project_dashboard.php");
+	}
+	elseif($_COOKIE["gh_authenticated"]=="yes"){
+		echo "AUTHENTICATED...";
+		$client = new Github\Client();
+		$client->authenticate($_COOKIE["gh_username"],$_COOKIE["gh_password"], Github\Client::AUTH_HTTP_PASSWORD);
+	}
+	if(isset($_POST['github_login'])){
+		echo "CLICKED THE GITHUB LOGIN...";
+		$username = $_POST['github_username'];
+		$password = $_POST['github_password'];
+		$client = new Github\Client();
+		$client->authenticate($username, $password, Github\Client::AUTH_HTTP_PASSWORD);
+		try{
+			$repositories = $client->api('current_user')->repositories();
+			setcookie("gh_authenticated","yes",time()+60*60*24*30);
+			setcookie("gh_username",$username,time()+60*60*24*30);
+			setcookie("gh_password",$password,time()+60*60*24*30);
+			$fgmembersite->RedirectToURL("./project_dashboard.php");
+		}
+		catch (Exception $e){
+			setcookie("gh_authenticated","failed",time()+600*60*24*30);
+			setcookie("gh_username","-",time()+60*60*24*30);
+			setcookie("gh_password","-",time()+60*60*24*30);
+			$fgmembersite->RedirectToURL("./project_dashboard.php");
+		}
+	}
+	echo "ENDING...";
 
 ?>
 <!DOCTYPE html>
@@ -49,19 +67,31 @@ if(isset($_POST['github_login'])){
         </script>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			
 			$("#github_success").hide();
-			
-			//if the user has submitted the github login form
-			if (<?php echo $authenticated ?> == "1"){
-				$("#github_login_module").hide();
-				$("#github_success").show();
-			}
-			
 
+							<?php
+								if ($_COOKIE["gh_authenticated"]=="yes"){ 
+									echo "$(\"#github_login_module\").hide();";
+									echo "$(\"#github_success\").show();";
+								}
+							?>
 			
-			//$("a").click(function(event){
-			 //alert("Thanks for visiting!");
-		   //});
+			//if ($.cookie("gh_authenticated") == "yes"){ //NEED JQUERY COOKIE PLUGIN
+			//if (<?php echo $_COOKIE["gh_authenticated"]; ?>.match(/^yes$/)){
+			//	$("#github_login_module").hide();
+			//	$("#github_success").show();
+			//}
+			
+			$("a#gh_logout").click(function(event){  
+				alert("Thanks for visiting!");
+				<?php
+					setcookie("gh_authenticated","no");
+					setcookie("gh_username","-");
+					setcookie("gh_password","-");
+					//$fgmembersite->RedirectToURL("./project_dashboard.php");
+				?>
+			});
 		 });	
 	</script>
 
@@ -69,6 +99,7 @@ if(isset($_POST['github_login'])){
 
 
 <body>
+<?php print_r($_COOKIE); ?>
 	<header id="header">
 		<hgroup>
 			<h1 class="site_title"><a href="index.php">Easy Doc</a></h1>
@@ -128,7 +159,7 @@ if(isset($_POST['github_login'])){
 
 						<form action="project_dashboard.php" method="post">
 							<?php
-								if ( (isset($_POST['github_login'])) && ($authenticated == 0)){ 
+								if ($_COOKIE["gh_authenticated"]=="failed"){ 
 									echo "<div style=\"color:red;\">Invalid Github Username/Password</div>";
 								}
 							?>
@@ -147,11 +178,7 @@ if(isset($_POST['github_login'])){
 						<img width="180px" src="./images/github-logo.png">
 						<br />
                         <p>You are successfully logged into Github as <b>
-						<?php if (isset($_POST['github_username']))
-						{
-							echo $_POST['github_username'];
-						}
-						?></b> <a style="float: right;" href="./project_dashboard.php">Logout</a></p>
+						<?php echo $_COOKIE["gh_username"];?></b> <a style="float: right;" id="gh_logout" href="#">Logout</a></p>
 						
                     </div>
                 </article>
@@ -170,7 +197,6 @@ if(isset($_POST['github_login'])){
       								echo '</tr>';
 								}
 								
-								
 								echo '</table>';
                     	?>
                     </div>
@@ -179,7 +205,7 @@ if(isset($_POST['github_login'])){
 		<article class="module width_half">
                     <header><h3>Tracked EasyDoc Projects</h3></header>
                     <div class="module_content">
-    					<?php //$repos = $fggitclass->getRepos();
+    					<?php $repos = $fggitclass->getRepos();
 
      					echo '<table class="table table-bordered">';
      					foreach ($repos as $repo) {
