@@ -10,8 +10,29 @@
 	}
 
 	if(isset($_GET['code'])){
-		echo "got the code yolo";
+
+
+		$data = 'client_id=' . 'd12c2803a9453ba44900' . '&' .
+				'client_secret=' . '76a1c2f9c3d9229af028ee6b890e1c21de8cb926' . '&' .
+				'code=' . urlencode($_GET['code']);
+
+		$ch = curl_init('https://github.com/login/oauth/access_token');
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response = curl_exec($ch);
+
+		preg_match('/access_token=([0-9a-f]+)/', $response, $out);
+		echo $out[1];
+		curl_close($ch);
+
+		if($out[1])
+		{
+			$fgmembersite->insertToken($out[1]);
+		}
+
+
 	}
+
 
 ?>
 <!DOCTYPE html>
@@ -120,7 +141,7 @@
 
 	<section id="main" class="column">
 
-                <article id="github_login_module" class="module width_half">
+          <article id="github_login_module" class="module width_half">
                     <header><h3>GitHub Authentication</h3></header>
                     <div class="module_content">
 						<img width="180px" src="./images/github-logo.png">
@@ -132,18 +153,11 @@
 							<input type="hidden" name="state" value="hollaatyourboy">
 							<input type="submit" value="Connect to GitHub" >
 						</form>
-						<form action="https://github.com/login/oauth/access_token" method="POST">
-							<input type="hidden" name="client_id" value="d12c2803a9453ba44900" >
-							<input type="hidden" name="redirect_uri" value="http://127.0.0.1:8080/project_dashboard.php" >
-							<input type="hidden" name="client_secret" value="76a1c2f9c3d9229af028ee6b890e1c21de8cb926" >
-							<input type="hidden" name="code" value="<?php echo $_GET["code"]; ?>" >
-							<input type="hidden" name="state" value="namehollaatyourboy" >
-							<input type="submit" value="DO SOMETHING OF VALUE" >
 
-						</form>
                     </div>
-                </article>
-				
+                </article> 
+
+
                 <article id="github_success" class="module width_half">
                     <header><h3>GitHub Authentication</h3></header>
                     <div class="module_content">

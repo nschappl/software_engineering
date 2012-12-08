@@ -156,12 +156,54 @@ class FGMembersite
     {
         return isset($_SESSION['name_of_user'])?$_SESSION['name_of_user']:'';
     }
+
+    function getuserid()
+    {
+        $this->DBLogin();
+        $name = $this->UserFullName();
+        $select = "SELECT id_user FROM users WHERE name='$name'";
+
+        $result = mysql_query($select, $this->connection);
+
+        $row = mysql_fetch_assoc($result);
+
+        return ($row['id_user']);
+
+
+    }
+
+    function getusertoken()
+    {
+        $this->DBLogin();
+        $name = $this->UserFullName();
+        $select = "SELECT * FROM users WHERE name='$name'";
+
+        $result = mysql_query($select, $this->connection);
+
+        $row = mysql_fetch_assoc($result);
+
+        return $row['token'];
+
+    }
     
     function UserEmail()
     {
         return isset($_SESSION['email_of_user'])?$_SESSION['email_of_user']:'';
     }
-    
+    function insertToken($token) 
+    {
+        $this->DBLogin();
+
+        $user_id = $this->getuserid();
+
+        $update = "UPDATE users SET token='".$token."' WHERE id_user='".$user_id."'" ;  
+ 
+        if(!mysql_query( $update ,$this->connection)) {
+            $this->HandleDBError("Error inserting data to the table\nquery:$insert_query");
+            return false;
+        }  
+        return true;      
+    }
     function LogOut()
     {
         session_start();
@@ -762,6 +804,7 @@ class FGMembersite
                 "username VARCHAR( 16 ) NOT NULL ,".
                 "password VARCHAR( 32 ) NOT NULL ,".
                 "confirmcode VARCHAR(32) ,".
+                "token VARCHAR(200) NULL".
                 "PRIMARY KEY ( id_user )".
                 ")";
                 
