@@ -59,14 +59,14 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			
-			$("#github_success").hide();
 
-							<?php
-								if ($_COOKIE["gh_authenticated"]=="yes"){ 
-									echo "$(\"#github_login_module\").hide();";
-									echo "$(\"#github_success\").show();";
-								}
-							?>
+			<?php
+				$token = $fgmembersite->getusertoken();
+				if ($token==NULL){ 
+					echo "$(\"#github_login_module\").hide();";
+					echo "$(\"#github_success\").show();";
+				}
+			?>
 			
 			//if ($.cookie("gh_authenticated") == "yes"){ //NEED JQUERY COOKIE PLUGIN
 			//if (<?php echo $_COOKIE["gh_authenticated"]; ?>.match(/^yes$/)){

@@ -804,7 +804,7 @@ class FGMembersite
                 "username VARCHAR( 16 ) NOT NULL ,".
                 "password VARCHAR( 32 ) NOT NULL ,".
                 "confirmcode VARCHAR(32) ,".
-                "token VARCHAR(200) NULL".
+                "token VARCHAR(200) NULL ,".
                 "PRIMARY KEY ( id_user )".
                 ")";
                 
