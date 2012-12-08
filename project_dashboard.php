@@ -3,45 +3,15 @@
 	require_once("./include/gitclass_config.php");
 	require_once("./php-github-api/vendor/autoload.php");
 	
-	echo "Starting...";
 	if(!$fgmembersite->CheckLogin())
 	{
 		$fgmembersite->RedirectToURL("./login.php");
 		exit;
 	}
-	if(!$_COOKIE){
-		echo "NO COOKIE...";
-	    setcookie("gh_authenticated","no",time()+60*60*24*30);
-        setcookie("gh_username","-",time()+60*60*24*30);
-        setcookie("gh_password","-",time()+60*60*24*30);
-		$fgmembersite->RedirectToURL("./project_dashboard.php");
+
+	if(isset($_GET['code'])){
+		echo "got the code yolo";
 	}
-	elseif($_COOKIE["gh_authenticated"]=="yes"){
-		echo "AUTHENTICATED...";
-		$client = new Github\Client();
-		$client->authenticate($_COOKIE["gh_username"],$_COOKIE["gh_password"], Github\Client::AUTH_HTTP_PASSWORD);
-	}
-	if(isset($_POST['github_login'])){
-		echo "CLICKED THE GITHUB LOGIN...";
-		$username = $_POST['github_username'];
-		$password = $_POST['github_password'];
-		$client = new Github\Client();
-		$client->authenticate($username, $password, Github\Client::AUTH_HTTP_PASSWORD);
-		try{
-			$repositories = $client->api('current_user')->repositories();
-			setcookie("gh_authenticated","yes",time()+60*60*24*30);
-			setcookie("gh_username",$username,time()+60*60*24*30);
-			setcookie("gh_password",$password,time()+60*60*24*30);
-			$fgmembersite->RedirectToURL("./project_dashboard.php");
-		}
-		catch (Exception $e){
-			setcookie("gh_authenticated","failed",time()+600*60*24*30);
-			setcookie("gh_username","-",time()+60*60*24*30);
-			setcookie("gh_password","-",time()+60*60*24*30);
-			$fgmembersite->RedirectToURL("./project_dashboard.php");
-		}
-	}
-	echo "ENDING...";
 
 ?>
 <!DOCTYPE html>
@@ -153,21 +123,23 @@
                 <article id="github_login_module" class="module width_half">
                     <header><h3>GitHub Authentication</h3></header>
                     <div class="module_content">
-                        <p>Enter your GitHub Credentials to connect with your repositories:</p>
 						<img width="180px" src="./images/github-logo.png">
 						<br /><br />
 
-						<form action="project_dashboard.php" method="post">
-							<?php
-								if ($_COOKIE["gh_authenticated"]=="failed"){ 
-									echo "<div style=\"color:red;\">Invalid Github Username/Password</div>";
-								}
-							?>
-							<div>Username:<input style="margin-left: 10px;" type="text" name="github_username"></div>
-							<div>Password:<input style="margin-left: 11px;" type="password" name="github_password"></div>
-							<input type='hidden' name='github_login' />
-							<br />
-							<input type="submit" value="Connect to GitHub" name='github_login'>
+						<form action="https://github.com/login/oauth/authorize" method="GET">
+							<input type="hidden" name="client_id" value="d12c2803a9453ba44900" >
+							<input type="hidden" name="redirect_uri" value="http://127.0.0.1:8080/project_dashboard.php">
+							<input type="hidden" name="state" value="hollaatyourboy">
+							<input type="submit" value="Connect to GitHub" >
+						</form>
+						<form action="https://github.com/login/oauth/access_token" method="POST">
+							<input type="hidden" name="client_id" value="d12c2803a9453ba44900" >
+							<input type="hidden" name="redirect_uri" value="http://127.0.0.1:8080/project_dashboard.php" >
+							<input type="hidden" name="client_secret" value="76a1c2f9c3d9229af028ee6b890e1c21de8cb926" >
+							<input type="hidden" name="code" value="<?php echo $_GET["code"]; ?>" >
+							<input type="hidden" name="state" value="namehollaatyourboy" >
+							<input type="submit" value="DO SOMETHING OF VALUE" >
+
 						</form>
                     </div>
                 </article>
