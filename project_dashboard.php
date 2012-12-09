@@ -94,8 +94,16 @@
 				$("#client").val("");
 				$("#summary").val("");
 				$("#track_project").slideDown();
+				
 				var url = $(this).parent().next().text();
 				$("#repo_url").val(url);
+				
+				var name = $(this).parent().prev().text();
+				$("#repo_name").val(name);
+				
+				var login = $(this).parent().next().next().text();
+				$("#repo_login").val(login);
+				
 				var name = $(this).parent().prev().text();
 				$("#title").val(name);
 
@@ -123,6 +131,8 @@
 		.redish{
 			color: red;
 		}
+				
+
 	</style>
 
 </head>
@@ -218,8 +228,9 @@
 								foreach($repositories as $repo) {
 									echo '<tr>';
 									echo '<td class="proj_name">'.$repo['name'].'</td>';
-									echo '<td><button class="add_button">Add</button></td>';
+									echo '<td><button class="add_button button">Add</button></td>';
 									echo '<td class="hidden">'.$repo['html_url'].'</td>';
+									echo '<td class="hidden">'.$general_info['login'].'</td>';
       								echo '</tr>';
 								}
 								echo '</table>';
@@ -227,25 +238,6 @@
                     </div>
             </article><!-- end of github projects article -->
 
-			<article class="module width_half">
-					<header><h3>Tracked EasyDoc Projects</h3></header>
-					<div class="module_content">
-						<?php
-                        
-                        $repos = $fggitclass->getRepos();
-						echo '<table class="table table-bordered">';
-						foreach ($repos as $repo) {
-							echo '<tr>';
-							echo '<td>'.$repo['id_repo'].'</td>';
-							echo '<td>'.$repo['url'].'</td>';
-							echo '</tr>';
-						}
-	 
-						echo '</table>';
-	
-						?>
-					</div>
-			</article><!-- end of messages article -->
 
 		<div class="clear"></div>
 
@@ -254,7 +246,9 @@
 				<div class="module_content">
 					<form action="" method="post">
 						<input type="hidden" name="submitted" id="submitted" value="1"/>
+						<input type="hidden" id="repo_name" name="repo_url"  value='' />
 						<input type="hidden" id="repo_url" name="repo_url"  value='' />
+						<input type="hidden" id="repo_login" name="repo_url"  value='' />
 							<fieldset style="width:48%; float:left; margin-right: 3%;"> <!--     to make two field float next to one another, adjust values accordingly -->
 									<label>Title</label>
 									<input id="title" type="text" name="title" style="width:92%;">
@@ -268,7 +262,7 @@
 	
 							<fieldset>
 								<label>Project Summary</label>
-								<textarea id="summary" name="summary" rows="12"></textarea>
+								<textarea id="summary" name="summary" rows="6"></textarea>
 							</fieldset>
 				</div>
 						<footer>
