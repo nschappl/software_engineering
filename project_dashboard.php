@@ -24,7 +24,7 @@
 		preg_match('/access_token=([0-9a-f]+)/', $response, $out);
 
 		curl_close($ch);
-		
+		echo "running";
 		if($out[1])
 		{
 			$fgmembersite->insertToken($out[1]);
@@ -33,17 +33,17 @@
 		
 
 	}
-//	$token = $fgmembersite->getusertoken();
+	$token = $fgmembersite->getusertoken();
 
-	//if($token != NULL)
-	//{
-	//	$client = new Github\Client();
-	//	$client->authenticate($token, $password=NULL, Github\Client::AUTH_HTTP_TOKEN);
-	//	var_dump($client->api('current_user'));
-	//	$repositories = $client->api('current_user')->repositories();
-	//	echo "POOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOP.............";
-	//	var_dump($repositories);
-	//}
+	if($token != NULL)
+	{
+		$client = new Github\Client();
+		$client->authenticate($token, $password=NULL, Github\Client::AUTH_HTTP_TOKEN);
+		//var_dump($client->api('current_user'));
+		$repositories = $client->api('current_user')->repositories();
+		//echo "POOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOP.............";
+		var_dump($repositories);
+	}
 
 	
 
