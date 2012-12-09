@@ -150,7 +150,7 @@
 		}
 		
 		.redish{
-			color: red;
+			color: #00ADEE;
 		}
 		
 		.button, .button span {
@@ -327,7 +327,7 @@
 								echo '<table class="table table-bordered">';
 								foreach($repositories as $repo) {
 									echo '<tr>';
-									echo '<td class="proj_name">'.$repo['name'].'</td>';
+									echo '<td class="proj_name"><b>'.$repo['name'].'</b></td>';
 									echo '<td style="padding-left: 200px;"><a class="add_button button small blue" href="#"><span>Add</span></a></td>'; 
 									echo '<td class="hidden">'.$repo['archive_url'].'</td>';
 									echo '<td class="hidden">'.$general_info['login'].'</td>';
