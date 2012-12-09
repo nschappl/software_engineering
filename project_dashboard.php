@@ -110,7 +110,6 @@
 
 
 <body>
-<?php var_dump($_POST); ?>
 	<header id="header">
 		<hgroup>
 			<h1 class="site_title"><a href="index.php">Easy Doc</a></h1>
@@ -216,7 +215,7 @@
 						foreach ($repos as $repo) {
 							echo '<tr>';
 							echo '<td>'.$repo['id_repo'].'</td>';
-							echo '<td>'.$repo['name'].'</td>';
+							echo '<td>'.$repo['url'].'</td>';
 							echo '</tr>';
 						}
 	 
@@ -233,7 +232,7 @@
 				<div class="module_content">
 					<form action="" method="post">
 						<input type="hidden" name="submitted" id="submitted" value="1"/>
-						<input type="hidden" name="repo_url" id="repo_url" value="<?php echo $repo['html_url']; ?>"/>
+						<input type="hidden" name="repo_url" id="repo_url" value='<?php echo $repo['html_url']; ?>' />
 							<fieldset style="width:48%; float:left; margin-right: 3%;"> <!--     to make two field float next to one another, adjust values accordingly -->
 									<label>Title</label>
 									<input type="text" name="title" style="width:92%;">

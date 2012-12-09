@@ -36,16 +36,23 @@ class gitclass {
             $this->HandleError("Database login failed!");
             return false;
         }
-	if($_POST['repo_url'])
+	if($_POST['repo_url'] && $_POST['title'] && $_POST['summary'] && $_POST['client'])
 	{
 	  $insert_query = 'insert into '.$this->tablename.'(
-                name
+                url, 
+                proj_title,
+                exec_summ,
+                client
                 )
                 values
                 (
-                "' . $this->SanitizeForSQL($_POST['repo_url']) . '"
+                "' . $this->SanitizeForSQL($_POST['repo_url']) . '",
+                "' . $this->SanitizeForSQL($_POST['title']) . '",
+                "' . $this->SanitizeForSQL($_POST['summary']) . '",
+                "' . $this->SanitizeForSQL($_POST['client']) . '"
 
-                )';      
+                )';     
+
 	  if(!mysql_query( $insert_query ,$this->connection))
 	  {
 	      $this->HandleDBError("Error inserting data to the table\nquery:$insert_query");
