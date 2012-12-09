@@ -86,6 +86,41 @@ class gitclass {
 	return $data;
     
     }
+
+    function cloneRepos()
+    {
+       if(!$this->DBLogin())
+        {
+            $this->HandleError("Database login failed!");
+            return false;
+        }
+        //Make sure directories are created
+        if(!is_dir('/var/server_files/tracked_projects'))
+        {
+            mkdir('/var/server_files/tracked_projects', 0777);
+        }
+ 
+ 
+        $tracked_repos = $this->getRepos();
+
+  //      if(is_array($tracked_repos))
+//        {
+            //curl -F "login=$USER" -F "token=$TOKEN" https://github.com/$USER/$REPO/$PKGTYPE/$BRANCHorTAG
+
+           // foreach ($tracked_repos as $repo)
+           // {
+             //   system('curl -F "login=jgiunco" -F "token=143db0be299d6681d385114407516b3d5c51b221" https://github.com/jgiunco/College-Projects/tarball/master')
+            //}   
+            system('curl -H "Authorization: token 143db0be299d6681d385114407516b3d5c51b221" -L -o /var/server_files/tracked_projects/foo.tar.gz \
+    https://api.github.com/repos/jgiunco/College-Projects/tarball');
+            system('tar -xvzf /var/server_files/tracked_projects/foo.tar.gz -C /var/server_files/tracked_projects/');
+            exit();
+    //    }
+    
+
+         
+
+    }
     
     function SanitizeForSQL($str)
     {
