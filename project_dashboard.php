@@ -2,30 +2,26 @@
 	require_once("./include/membersite_config.php");
 	require_once("./include/gitclass_config.php");
 	require_once("./php-github-api/vendor/autoload.php");
-	
-	if(!$fgmembersite->CheckLogin())
-	{
+    
+    
+	if(!$fgmembersite->CheckLogin()){
 		$fgmembersite->RedirectToURL("./login.php");
-		exit;
+		exit();
 	}
-
-
-
-  require_once("./include/gitclass_config.php");
-  
+    
+    require_once("./include/gitclass_config.php");
+    
   	if(isset($_POST['submitted'])) {
 		$fggitclass->addRepo();
     }
-
-
-
+    
 	if(isset($_GET['code'])){
-
-
+        echo "here";
+        exit();
 		$data = 'client_id=' . 'd12c2803a9453ba44900' . '&' .
 				'client_secret=' . '76a1c2f9c3d9229af028ee6b890e1c21de8cb926' . '&' .
 				'code=' . urlencode($_GET['code']);
-
+        
 		$ch = curl_init('https://github.com/login/oauth/access_token');
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -35,32 +31,21 @@
 
 		curl_close($ch);
 	
-		if($out[1])
-		{
+		if($out[1]){
 			$fgmembersite->insertToken($out[1]);
 		}
-
-		
-
 	}
+
 	$token = $fgmembersite->getusertoken();
 
-	if($token != NULL)
-	{
+	if($token != NULL){
 		$client = new Github\Client();
 		$client->authenticate($token, $password=NULL, Github\Client::AUTH_HTTP_TOKEN);
 		$general_info = $client->api('current_user')->show();
-
 	}
-
-	
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="utf-8"/>
 	<title>EasyDoc</title>
@@ -95,7 +80,7 @@
 				else {
 					echo "$(\"#github_success\").show();";
 				}
-			?>
+            ?>
 			
 			$("#gh_logout").click(function() {
 				window.location.href = "./disassociate_github.php";
@@ -218,7 +203,7 @@
                     <div class="module_content">
 						<img width="180px" src="./images/github-logo.png">
 						<br />
-						<h4 class="alert_success">You are successfully logged into GitHub as <?php echo $general_info['login']; ?> <a style="float: right; color: #0099FF; cursor: pointer; margin-right:10px; font-weight: 400;" id="gh_logout">Logout</a></h4>
+						<h4 class="alert_success">You are successfully logged into GitHub as <?php echo $general_info['login'];?> <a style="float: right; color: #0099FF; cursor: pointer; margin-right:10px; font-weight: 400;" id="gh_logout">Logout</a></h4>
                     </div>
                 </article>
 
@@ -227,6 +212,7 @@
                     <div class="module_content">
 
                     	<?php
+                                
 								$repositories = $client->api('current_user')->repositories();
 								echo '<table class="table table-bordered">';
 								foreach($repositories as $repo) {
@@ -244,8 +230,10 @@
 			<article class="module width_half">
 					<header><h3>Tracked EasyDoc Projects</h3></header>
 					<div class="module_content">
-						<?php $repos = $fggitclass->getRepos();
-
+						<?php
+                        
+                        $repos = $fggitclass->getRepos();
+                        exit();
 						echo '<table class="table table-bordered">';
 						foreach ($repos as $repo) {
 							echo '<tr>';
