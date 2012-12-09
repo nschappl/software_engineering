@@ -203,7 +203,7 @@
                     <div class="module_content">
 						<img width="180px" src="./images/github-logo.png">
 						<br />
-						<h4 class="alert_success">You are successfully logged into GitHub as <?php echo $general_info['login'];?> <a style="float: right; color: #0099FF; cursor: pointer; margin-right:10px; font-weight: 400;" id="gh_logout">Logout</a></h4>
+						<h4 class="alert_success">You are successfully logged into GitHub as <?php echo $general_info['login'];?> <a style="float: right; color: #0099FF; cursor: pointer; margin-right:5px; font-weight: 400;" id="gh_logout">Logout</a></h4>
                     </div>
                 </article>
 
