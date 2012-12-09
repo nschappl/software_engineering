@@ -84,7 +84,7 @@
 				$("#track_project").slideDown();
 				
 				var url = $(this).parent().next().text();
-				$("#repo_url").val(url);
+				$("#repo_archive_url").val(url);
 				
 				var name = $(this).parent().prev().text();
 				$("#repo_name").val(name);
@@ -329,7 +329,7 @@
 									echo '<tr>';
 									echo '<td class="proj_name">'.$repo['name'].'</td>';
 									echo '<td style="padding-left: 200px;"><a class="add_button button small blue" href="#"><span>Add</span></a></td>'; 
-									echo '<td class="hidden">'.$repo['html_url'].'</td>';
+									echo '<td class="hidden">'.$repo['archive_url'].'</td>';
 									echo '<td class="hidden">'.$general_info['login'].'</td>';
       								echo '</tr>';
 								}
@@ -347,7 +347,7 @@
 					<form action="" method="post">
 						<input type="hidden" name="submitted" id="submitted" value="1"/>
 						<input type="hidden" id="repo_name" name="repo_name"  value='' />
-						<input type="hidden" id="repo_url" name="repo_url"  value='' />
+						<input type="hidden" id="repo_archive_url" name="repo_archive_url"  value='' />
 						<input type="hidden" id="repo_login" name="repo_login"  value='' />
 							<fieldset style="width:48%; float:left; margin-right: 3%;"> <!--     to make two field float next to one another, adjust values accordingly -->
 									<label>Title</label>
