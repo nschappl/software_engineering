@@ -16,8 +16,7 @@
     }
     
 	if(isset($_GET['code'])){
-        echo "here";
-        exit();
+
 		$data = 'client_id=' . 'd12c2803a9453ba44900' . '&' .
 				'client_secret=' . '76a1c2f9c3d9229af028ee6b890e1c21de8cb926' . '&' .
 				'code=' . urlencode($_GET['code']);
