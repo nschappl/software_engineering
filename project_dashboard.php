@@ -9,6 +9,16 @@
 		exit;
 	}
 
+
+
+  require_once("./include/gitclass_config.php");
+  
+  	if(isset($_POST['submitted'])) {
+		$fggitclass->addRepo();
+    }
+
+
+
 	if(isset($_GET['code'])){
 
 
@@ -24,7 +34,7 @@
 		preg_match('/access_token=([0-9a-f]+)/', $response, $out);
 
 		curl_close($ch);
-		echo "running";
+	
 		if($out[1])
 		{
 			$fgmembersite->insertToken($out[1]);
@@ -39,10 +49,8 @@
 	{
 		$client = new Github\Client();
 		$client->authenticate($token, $password=NULL, Github\Client::AUTH_HTTP_TOKEN);
-		//var_dump($client->api('current_user'));
-		$repositories = $client->api('current_user')->repositories();
-		//echo "POOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOP.............";
-		var_dump($repositories);
+		$general_info = $client->api('current_user')->show();
+
 	}
 
 	
@@ -168,9 +176,7 @@
                     <div class="module_content">
 						<img width="180px" src="./images/github-logo.png">
 						<br />
-						<h4 class="alert_success">You are successfully logged into your GitHub account <a style="float: right; color: #0099FF; cursor: pointer; margin-right:10px; font-weight: 400;" id="gh_logout">Logout</a></h4>
-
-						
+						<h4 class="alert_success">You are successfully logged into Github as <?php echo $general_info['login']; ?> <a style="float: right; color: #0099FF; cursor: pointer; margin-right:10px; font-weight: 400;" id="gh_logout">Logout</a></h4>
                     </div>
                 </article>
 
@@ -184,7 +190,7 @@
 								foreach($repositories as $repo) {
 									echo '<tr>';
 									echo '<td>'.$repo['name'].'</td>';
-									echo '<td><form class="form-inline" action="/repo_manager.php" method="post"/><input type="hidden" name="submitted" id="submitted" value="1"/><input type="hidden" name="repo_url" id="repo_url" value="'.$repo['html_url'].'"/><button type="submit" class="btn">Add</button></form></td>';
+									echo '<td><form class="form-inline" action="" method="post"/><input type="hidden" name="submitted" id="submitted" value="1"/><input type="hidden" name="repo_url" id="repo_url" value="'.$repo['html_url'].'"/><button type="submit" class="btn">Add</button></form></td>';
       								echo '</tr>';
 								}
 								
