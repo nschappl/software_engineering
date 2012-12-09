@@ -85,17 +85,25 @@
 				window.location.href = "./disassociate_github.php";
 			});
 			
-			$("#add_button").click(function() {
+			$(".add_button").click(function() {
 				$("#track_project").slideDown();
 			});
 		 });	
 	</script>
+	
+	<style>
+		#track_project
+		{			
+			-webkit-box-shadow:0 0 30px #3a87ad; 
+			-moz-box-shadow: 0 0 30px #3a87ad; 
+			box-shadow:0 0 30px #3a87ad;
+		}
+	</style>
 
 </head>
 
 
 <body>
-<?php var_dump($_POST); ?>
 	<header id="header">
 		<hgroup>
 			<h1 class="site_title"><a href="index.php">Easy Doc</a></h1>
@@ -185,7 +193,7 @@
 								foreach($repositories as $repo) {
 									echo '<tr>';
 									echo '<td>'.$repo['name'].'</td>';
-									echo '<td><button id="add_button">Add</button></td>';
+									echo '<td><button class="add_button">Add</button></td>';
       								echo '</tr>';
 								}
 								echo '</table>';
@@ -204,7 +212,7 @@
 						foreach ($repos as $repo) {
 							echo '<tr>';
 							echo '<td>'.$repo['id_repo'].'</td>';
-							echo '<td>'.$repo['name'].'</td>';
+							echo '<td>'.$repo['url'].'</td>';
 							echo '</tr>';
 						}
 	 
@@ -221,7 +229,7 @@
 				<div class="module_content">
 					<form action="" method="post">
 						<input type="hidden" name="submitted" id="submitted" value="1"/>
-						<input type="hidden" name="repo_url" id="repo_url" value="<?php echo $repo['html_url']; ?>"/>
+						<input type="hidden" name="repo_url" id="repo_url" value='<?php echo $repo['html_url']; ?>' />
 							<fieldset style="width:48%; float:left; margin-right: 3%;"> <!--     to make two field float next to one another, adjust values accordingly -->
 									<label>Title</label>
 									<input type="text" name="title" style="width:92%;">
@@ -246,11 +254,6 @@
 					</form>
 
 		</article><!-- end of post new article -->
-
-                <h4 class="alert_info">This could be an informative message.</h4>
-                <h4 class="alert_warning">A Warning Alert</h4>
-                <h4 class="alert_error">An Error Message</h4>
-                <h4 class="alert_success">A Success Message</h4>
 
 		<div class="spacer"></div>
 	</section>
