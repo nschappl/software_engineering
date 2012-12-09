@@ -1,11 +1,9 @@
 <?php 
-
 //this class is an important class lol
-
 class gitclass {
 
     var $db_host;
-    var	$username;
+    var $username;
     var $pwd;
     var $database;
     var $tablename;
@@ -36,28 +34,32 @@ class gitclass {
             $this->HandleError("Database login failed!");
             return false;
         }
-	if($_POST['repo_url'] && $_POST['title'] && $_POST['summary'] && $_POST['client'])
-	{
-	  $insert_query = 'insert into '.$this->tablename.'(
+    if($_POST['repo_url'] && $_POST['title'] && $_POST['summary'] && $_POST['client'])
+    {
+      $insert_query = 'insert into '.$this->tablename.'(
                 url, 
                 proj_title,
                 exec_summ,
-                client
+                client,
+                repo_name,
+                repo_login
                 )
                 values
                 (
-                "' . $this->SanitizeForSQL($_POST['repo_url']) . '",
+                "' . $this->SanitizeForSQL($_POST['repo_archive_url']) . '",
                 "' . $this->SanitizeForSQL($_POST['title']) . '",
                 "' . $this->SanitizeForSQL($_POST['summary']) . '",
-                "' . $this->SanitizeForSQL($_POST['client']) . '"
+                "' . $this->SanitizeForSQL($_POST['client']) . '",
+                "' . $this->SanitizeForSQL($_POST['repo_name']) . '",
+                "' . $this->SanitizeForSQL($_POST['repo_login']) . '"
 
                 )';     
 
-	  if(!mysql_query( $insert_query ,$this->connection))
-	  {
-	      $this->HandleDBError("Error inserting data to the table\nquery:$insert_query");
-	      return false;
-	  }
+      if(!mysql_query( $insert_query ,$this->connection))
+      {
+          $this->HandleDBError("Error inserting data to the table\nquery:$insert_query");
+          return false;
+      }
         
         }
         
@@ -73,22 +75,25 @@ class gitclass {
             $this->HandleError("Database login failed!");
             return false;
         }
-	
-	$select_query = 'select * from '.$this->tablename;
-	
-	$result = mysql_query($select_query, $this->connection);
-	$data = array();
-	while($row = mysql_fetch_assoc($result))
-	{
-	  $data[] = $row;
-	}
+    
+    $select_query = 'select * from '.$this->tablename;
+    
+    $result = mysql_query($select_query, $this->connection);
+    $data = array();
+    while($row = mysql_fetch_assoc($result))
+    {
+      $data[] = $row;
+    }
 
-	return $data;
+    return $data;
     
     }
 
     function cloneRepos()
     {
+
+       include("./include/membersite_config.php");
+             
        if(!$this->DBLogin())
         {
             $this->HandleError("Database login failed!");
@@ -100,25 +105,19 @@ class gitclass {
             mkdir('/var/server_files/tracked_projects', 0777);
         }
  
- 
         $tracked_repos = $this->getRepos();
 
-  //      if(is_array($tracked_repos))
-//        {
-            //curl -F "login=$USER" -F "token=$TOKEN" https://github.com/$USER/$REPO/$PKGTYPE/$BRANCHorTAG
+        foreach ($tracked_repos as $repo)
+        {
+            $file_name ="".time().".tar.gz";
+           
+            $token = $fgmembersite->getusertoken();
 
-           // foreach ($tracked_repos as $repo)
-           // {
-             //   system('curl -F "login=jgiunco" -F "token=143db0be299d6681d385114407516b3d5c51b221" https://github.com/jgiunco/College-Projects/tarball/master')
-            //}   
-            system('curl -H "Authorization: token 143db0be299d6681d385114407516b3d5c51b221" -L -o /var/server_files/tracked_projects/foo.tar.gz \
-    https://api.github.com/repos/jgiunco/College-Projects/tarball');
-            system('tar -xvzf /var/server_files/tracked_projects/foo.tar.gz -C /var/server_files/tracked_projects/');
-            exit();
-    //    }
-    
+            system('curl -H "Authorization: token '.$token.'" -L -o /var/server_files/tracked_projects/'.$file_name.'\
+    https://api.github.com/repos/'.$repo['repo_login'].'/'.$repo['repo_name'].'/tarball');
+            system('tar -xzf /var/server_files/tracked_projects/'.$file_name.' -C /var/server_files/tracked_projects/'); 
+        }
 
-         
 
     }
     
@@ -186,6 +185,8 @@ class gitclass {
                "proj_title VARCHAR ( 256 ) NOT NULL, ".
                "exec_summ text NOT NULL, ".
                "client VARCHAR( 256 ) NOT NULL,".
+               "repo_name VARCHAR ( 256 ) NOT NULL,".
+               "repo_login VARCHAR ( 256 ) NOT NULL,".
                "UNIQUE ( url ), ".
                "PRIMARY KEY ( id_repo )".
                ")";
