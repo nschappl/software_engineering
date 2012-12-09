@@ -70,18 +70,6 @@
 			$("#github_success").hide();
 			$("#track_project").hide();
 
-			
-			<?php
-				$token = $fgmembersite->getusertoken();
-
-				if ($token==NULL){ 
-					echo "$(\"#github_login_module\").show();";
-				}
-				else {
-					echo "$(\"#github_success\").show();";
-				}
-            ?>
-			
 			$("#gh_logout").click(function() {
 				window.location.href = "./disassociate_github.php";
 			});
@@ -106,6 +94,10 @@
 				
 				var name = $(this).parent().prev().text();
 				$("#title").val(name);
+				
+				$("#github_login_module").removeClass("glowme");
+				$("#github_success").removeClass("glowme");
+				$("#github_projects").removeClass("glowme");
 
 
 			});
@@ -115,15 +107,43 @@
 				$(".proj_name").removeClass("redish");
 			});
 			
+			
+			$("#link_1").click(function() {
+				$("#github_projects").removeClass("glowme");
+				$("#github_login_module").addClass("glowme");
+				$("#github_success").addClass("glowme");
+			});
+			
+			$(".link_2").click(function() {
+				$("#github_login_module").removeClass("glowme");
+				$("#github_success").removeClass("glowme");
+				$("#github_projects").addClass("glowme");
+			});
+			
+			
+			
+			<?php
+				$token = $fgmembersite->getusertoken();
+
+				if ($token==NULL){ 
+					echo "$(\"#github_login_module\").show();";
+				}
+				else {
+					echo "$(\"#github_success\").show();";
+				}
+            ?>
+			
 		 });	
 	</script>
 	
 	<style>
-		#track_project{			
-			-webkit-box-shadow:0 0 30px #3a87ad; 
-			-moz-box-shadow: 0 0 30px #3a87ad; 
-			box-shadow:0 0 30px #3a87ad;
+		.glowme{			
+			-webkit-box-shadow:0 0 30px #00ADEE; 
+			-moz-box-shadow: 0 0 30px #00ADEE; 
+			box-shadow:0 0 30px #00ADEE;
 		}
+		
+
 		
 		#x {
 			padding: 3px;
@@ -246,12 +266,12 @@
                 <hr/>
                 <h3>GitHub</h3>
                 <ul class="toggle">
-                        <li class="icn_settings"><a href="#">Configure GitHub Connectivity</a></li>
+                        <li class="icn_settings"><a id="link_1">Configure GitHub Connectivity</a></li>
                         <li class="icn_jump_back"><a target="_blank" href="http://www.github.com">GitHub Homepage</a></li>
 		<h3>Projects</h3>
 		<ul class="toggle">
-                    <li class="icn_new_article"><a href="#">Add a GitHub Project
-                    <li class="icn_categories"><a href="repo_manager.php">View EasyDoc Projects</a></li>
+                    <li class="icn_new_article"><a class="link_2">Add a GitHub Project
+                    <li class="icn_categories"><a class="link_2">View EasyDoc Projects</a></li>
 		</ul>
 		<h3>Anything Else</h3>
 		<ul class="toggle">
@@ -297,7 +317,7 @@
                     </div>
                 </article>
 
-            <article class="module width_half">
+            <article id="github_projects" class="module width_half">
 		    <header><h3>GitHub Projects</h3></header>
                     <div class="module_content">
 
@@ -321,7 +341,7 @@
 
 		<div class="clear"></div>
 
-		<article id="track_project" class="module width_full">
+		<article id="track_project" class="module width_full glowme">
 			<header><h3>Track New Project</h3><img id="x" src="./images/xout.png" style="float: right;" width="25px" /></header>
 				<div class="module_content">
 					<form action="" method="post">
