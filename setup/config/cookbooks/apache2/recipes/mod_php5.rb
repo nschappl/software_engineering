@@ -95,6 +95,18 @@ execute "install-lampserver" do
   command "sudo apt-get -y install lamp-server^"
 end
 
+execute "install-curl" do
+  command "sudo apt-get -y install curl"
+end
+
+execute "mkdir server-files" do
+  command "sudo mkdir /var/server_files"
+end
+
+execute "chown www-data" do
+  command "sudo chown www-data.www-data /var/server_files/"
+end
+
 apache_module "php5" do
   case node['platform']
   when "redhat","centos","scientific","amazon","fedora","freebsd"
