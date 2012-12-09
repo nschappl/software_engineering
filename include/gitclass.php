@@ -129,6 +129,11 @@ class gitclass {
 
 
     }
+
+    function cleanRepos()
+    {
+        system('rm -r /var/server_files/tracked_projects');
+    }
     
     function SanitizeForSQL($str)
     {
