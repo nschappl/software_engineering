@@ -2,17 +2,13 @@
 	require_once("./include/membersite_config.php");
 	require_once("./include/gitclass_config.php");
 	require_once("./php-github-api/vendor/autoload.php");
-	
-	if(!$fgmembersite->CheckLogin())
-	{
+    
+	if(!$fgmembersite->CheckLogin()){
 		$fgmembersite->RedirectToURL("./login.php");
 		exit;
 	}
-
-
-
-  require_once("./include/gitclass_config.php");
-  
+    
+    require_once("./include/gitclass_config.php");
   	if(isset($_POST['submitted'])) {
 		$fggitclass->addRepo();
     }
@@ -20,8 +16,6 @@
 
 
 	if(isset($_GET['code'])){
-
-
 		$data = 'client_id=' . 'd12c2803a9453ba44900' . '&' .
 				'client_secret=' . '76a1c2f9c3d9229af028ee6b890e1c21de8cb926' . '&' .
 				'code=' . urlencode($_GET['code']);
@@ -35,28 +29,17 @@
 
 		curl_close($ch);
 	
-		if($out[1])
-		{
+		if($out[1]){
 			$fgmembersite->insertToken($out[1]);
 		}
-
-		
-
 	}
 	$token = $fgmembersite->getusertoken();
 
-	if($token != NULL)
-	{
+	if($token != NULL){
 		$client = new Github\Client();
 		$client->authenticate($token, $password=NULL, Github\Client::AUTH_HTTP_TOKEN);
 		$general_info = $client->api('current_user')->show();
-
 	}
-
-	
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
