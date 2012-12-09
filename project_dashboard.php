@@ -100,11 +100,20 @@
 				window.location.href = "./disassociate_github.php";
 			});
 			
-			$("#add_button").click(function() {
+			$(".add_button").click(function() {
 				$("#track_project").slideDown();
 			});
 		 });	
 	</script>
+	
+	<style>
+		#track_project
+		{			
+			-webkit-box-shadow:0 0 30px #3a87ad; 
+			-moz-box-shadow: 0 0 30px #3a87ad; 
+			box-shadow:0 0 30px #3a87ad;
+		}
+	</style>
 
 </head>
 
@@ -198,7 +207,7 @@
 								foreach($repositories as $repo) {
 									echo '<tr>';
 									echo '<td>'.$repo['name'].'</td>';
-									echo '<td><button id="add_button">Add</button></td>';
+									echo '<td><button class="add_button">Add</button></td>';
       								echo '</tr>';
 								}
 								echo '</table>';
