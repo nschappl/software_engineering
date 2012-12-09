@@ -138,10 +138,15 @@ class gitclass {
     function CreateTable()
     {
         $qry = "Create Table $this->tablename (".
-                "id_repo INT NOT NULL AUTO_INCREMENT ,".
-                "name VARCHAR( 256 ) NOT NULL ,".
-                "PRIMARY KEY ( id_repo )".
-                ")";
+               "id_repo INT NOT NULL AUTO_INCREMENT ,".
+               "url VARCHAR( 256 ) NOT NULL ,".
+               "proj_title VARCHAR ( 256 ) NOT NULL, ".
+               "exec_summ text NOT NULL, ".
+               "client VARCHAR( 256 ) NOT NULL,".
+               "UNIQUE ( url ), ".
+               "PRIMARY KEY ( id_repo )".
+               ")";
+                
                 
         if(!mysql_query($qry,$this->connection))
         {
