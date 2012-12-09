@@ -247,9 +247,9 @@
 				<div class="module_content">
 					<form action="" method="post">
 						<input type="hidden" name="submitted" id="submitted" value="1"/>
-						<input type="hidden" id="repo_name" name="repo_url"  value='' />
+						<input type="hidden" id="repo_name" name="repo_name"  value='' />
 						<input type="hidden" id="repo_url" name="repo_url"  value='' />
-						<input type="hidden" id="repo_login" name="repo_url"  value='' />
+						<input type="hidden" id="repo_login" name="repo_login"  value='' />
 							<fieldset style="width:48%; float:left; margin-right: 3%;"> <!--     to make two field float next to one another, adjust values accordingly -->
 									<label>Title</label>
 									<input id="title" type="text" name="title" style="width:92%;">
