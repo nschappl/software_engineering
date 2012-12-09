@@ -27,7 +27,6 @@
 		
 		if($out[1])
 		{
-			echo "THIS IS RUNNING";
 			$fgmembersite->insertToken($out[1]);
 		}
 
@@ -87,8 +86,7 @@
 				}
 			?>
 			$("#gh_logout").click(function() {
-				
-				window.location.href = "./project_dashboard.php";
+				window.location.href = "./disassociate_github.php";
 			});
 		 });	
 	</script>
@@ -97,7 +95,6 @@
 
 
 <body>
-<?php print_r($_COOKIE); ?>
 	<header id="header">
 		<hgroup>
 			<h1 class="site_title"><a href="index.php">Easy Doc</a></h1>
