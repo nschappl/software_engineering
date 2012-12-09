@@ -167,7 +167,8 @@
                     <div class="module_content">
 						<img width="180px" src="./images/github-logo.png">
 						<br />
-                        <p>You are successfully logged into your GitHub account <a style="float: right; color: #0099FF; cursor: pointer; margin-bottom: 10px;" id="gh_logout">Logout</a></p>
+						<h4 class="alert_success">You are successfully logged into your GitHub account <a style="float: right; color: #0099FF; cursor: pointer; margin-right:10px; font-weight: 400;" id="gh_logout">Logout</a></h4>
+
 						
                     </div>
                 </article>
