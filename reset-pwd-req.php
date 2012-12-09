@@ -19,6 +19,9 @@ if(isset($_POST['submitted']))
       <title>Reset Password Request</title>
       <link rel="STYLESHEET" type="text/css" href="style/fg_membersite.css" />
       <script type='text/javascript' src='scripts/gen_validatorv31.js'></script>
+      <script src="js/jquery-1.5.2.min.js" type="text/javascript"></script>
+
+
 </head>
 <body>
 
@@ -36,7 +39,7 @@ if(isset($_POST['submitted']))
 <br />
 <!-- Form Code Start -->
 <div id='fg_membersite' class="center">
-<form id='resetreq' action='<?php echo $fgmembersite->GetSelfScript(); ?>' method='post' accept-charset='UTF-8'>
+<form id='resetreq' action='./project_dashboard.php' method='post' accept-charset='UTF-8'>
 <fieldset >
 <legend>Reset Password</legend>
 
@@ -52,7 +55,7 @@ if(isset($_POST['submitted']))
 </div>
 <div class='short_explanation'>A link to reset your password will be sent to the email address</div>
 <div class='container'>
-    <input type='submit' name='Submit' value='Submit' />
+    <input id="yolo" type='submit' name='Submit' value='Submit' />
 </div>
 
 </fieldset>
