@@ -50,7 +50,7 @@ if(!$fgmembersite->CheckLogin())
 			<a class="logout_user" href="logout.php" title="Logout">Logout</a>
 		</div>
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="index.html">EasyDoc Projects</a> <div class="breadcrumb_divider"></div> <a class="current">Project_Name</a></article>
+			<article class="breadcrumbs"><a href="index.html">Projects</a> <div class="breadcrumb_divider"></div> <a class="current">Project_Name</a></article>
 		</div>
 	</section><!-- end of secondary bar -->
 
@@ -61,18 +61,18 @@ if(!$fgmembersite->CheckLogin())
                 <hr/>
                 <h3>GitHub</h3>
                 <ul class="toggle">
-                        <li class="icn_settings"><a href="#">Configure GitHub Connectivity</a></li>
-                        <li class="icn_jump_back"><a href="#">GitHub Homepage</a></li>
+                        <li class="icn_settings"><a href="./project_dashboard.php">Configure GitHub Connectivity</a></li>
+                        <li class="icn_jump_back"><a href="http://www.github.com">GitHub Homepage</a></li>
 		<h3>Projects</h3>
 		<ul class="toggle">
-                    <li class="icn_new_article"><a href="#">Add a GitHub Project
-                    <li class="icn_categories"><a href="repo_manager.php">View EasyDoc Projects</a></li>
+                    <li class="icn_new_article"><a href="./project_dashboard.php">Add a GitHub Project
+                    <li class="icn_categories"><a href="./project_dashboard.php">View EasyDoc Projects</a></li>
 		</ul>
-		<h3>Anything Else</h3>
+		<h3>Future Capabilities</h3>
 		<ul class="toggle">
-			<li class="icn_add_user"><a href="#">Blah</a></li>
-			<li class="icn_view_users"><a href="#">View Users</a></li>
-			<li class="icn_profile"><a href="#">Your Profile</a></li>
+			<li class="icn_add_user"><a href="#">Action 1</a></li>
+			<li class="icn_view_users"><a href="#">Action 2</a></li>
+			<li class="icn_profile"><a href="#">Action 3</a></li>
 		</ul>
 
 		<footer>

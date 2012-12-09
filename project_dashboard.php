@@ -277,11 +277,11 @@
                     <li class="icn_new_article"><a class="link_2">Add a GitHub Project
                     <li class="icn_categories"><a class="link_2">View EasyDoc Projects</a></li>
 		</ul>
-		<h3>Anything Else</h3>
+		<h3>Future Capabilities</h3>
 		<ul class="toggle">
-			<li class="icn_add_user"><a href="#">Blah</a></li>
-			<li class="icn_view_users"><a href="#">View Users</a></li>
-			<li class="icn_profile"><a href="#">Your Profile</a></li>
+			<li class="icn_add_user"><a href="#">Action 1</a></li>
+			<li class="icn_view_users"><a href="#">Action 2</a></li>
+			<li class="icn_profile"><a href="#">Action 3</a></li>
 		</ul>
 
 		<footer>
