@@ -16,8 +16,7 @@
     }
     
 	if(isset($_GET['code'])){
-        echo "here";
-        exit();
+
 		$data = 'client_id=' . 'd12c2803a9453ba44900' . '&' .
 				'client_secret=' . '76a1c2f9c3d9229af028ee6b890e1c21de8cb926' . '&' .
 				'code=' . urlencode($_GET['code']);
@@ -66,9 +65,11 @@
         </script>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$(".hidden").hide();
 			$("#github_login_module").hide();
 			$("#github_success").hide();
 			$("#track_project").hide();
+
 			
 			<?php
 				$token = $fgmembersite->getusertoken();
@@ -86,17 +87,41 @@
 			});
 			
 			$(".add_button").click(function() {
+				$(".proj_name").removeClass("redish");
+				$(this).parent().prev().addClass("redish");
+				$("#track_project").hide();
+				$("#title").val("");
+				$("#client").val("");
+				$("#summary").val("");
 				$("#track_project").slideDown();
+				var url = $(this).parent().next().text();
+				$("#repo_url").val(url);
+				var name = $(this).parent().prev().text();
+				$("#title").val(name);
+
+
 			});
+			
+			$("#x").click(function() {
+				$("#track_project").hide();
+			});
+			
 		 });	
 	</script>
 	
 	<style>
-		#track_project
-		{			
+		#track_project{			
 			-webkit-box-shadow:0 0 30px #3a87ad; 
 			-moz-box-shadow: 0 0 30px #3a87ad; 
 			box-shadow:0 0 30px #3a87ad;
+		}
+		
+		#x {
+			padding: 3px;
+		}
+		
+		.redish{
+			color: red;
 		}
 	</style>
 
@@ -178,7 +203,7 @@
                     <div class="module_content">
 						<img width="180px" src="./images/github-logo.png">
 						<br />
-						<h4 class="alert_success">You are successfully logged into GitHub as <?php echo $general_info['login'];?> <a style="float: right; color: #0099FF; cursor: pointer; margin-right:10px; font-weight: 400;" id="gh_logout">Logout</a></h4>
+						<h4 class="alert_success">You are successfully logged into GitHub as <?php echo $general_info['login'];?> <a style="float: right; color: #0099FF; cursor: pointer; margin-right:5px; font-weight: 400;" id="gh_logout">Logout</a></h4>
                     </div>
                 </article>
 
@@ -192,8 +217,9 @@
 								echo '<table class="table table-bordered">';
 								foreach($repositories as $repo) {
 									echo '<tr>';
-									echo '<td>'.$repo['name'].'</td>';
+									echo '<td class="proj_name">'.$repo['name'].'</td>';
 									echo '<td><button class="add_button">Add</button></td>';
+									echo '<td class="hidden">'.$repo['html_url'].'</td>';
       								echo '</tr>';
 								}
 								echo '</table>';
@@ -207,7 +233,6 @@
 						<?php
                         
                         $repos = $fggitclass->getRepos();
-                        exit();
 						echo '<table class="table table-bordered">';
 						foreach ($repos as $repo) {
 							echo '<tr>';
@@ -225,25 +250,25 @@
 		<div class="clear"></div>
 
 		<article id="track_project" class="module width_full">
-			<header><h3>Track New Project</h3></header>
+			<header><h3>Track New Project</h3><img id="x" src="./images/xout.png" style="float: right;" width="25px" /></header>
 				<div class="module_content">
 					<form action="" method="post">
 						<input type="hidden" name="submitted" id="submitted" value="1"/>
-						<input type="hidden" name="repo_url" id="repo_url" value='<?php echo $repo['html_url']; ?>' />
+						<input type="hidden" id="repo_url" name="repo_url"  value='' />
 							<fieldset style="width:48%; float:left; margin-right: 3%;"> <!--     to make two field float next to one another, adjust values accordingly -->
 									<label>Title</label>
-									<input type="text" name="title" style="width:92%;">
+									<input id="title" type="text" name="title" style="width:92%;">
 							</fieldset>
 	
 							<fieldset style="width:48%; float:left;"> <!-- to make two field     float next to one another, adjust values accordingly -->
 									<label>Client</label>
-									<input type="text" name="client" style="width:92%;">
+									<input id="client" type="text" name="client" style="width:92%;">
 							</fieldset>
 							<div class="clear">		
 	
 							<fieldset>
 								<label>Project Summary</label>
-								<textarea name="summary" rows="12"></textarea>
+								<textarea id="summary" name="summary" rows="12"></textarea>
 							</fieldset>
 				</div>
 						<footer>
