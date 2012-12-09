@@ -155,6 +155,7 @@
 							<input type="hidden" name="client_id" value="d12c2803a9453ba44900" >
 							<input type="hidden" name="redirect_uri" value="http://127.0.0.1:8080/project_dashboard.php">
 							<input type="hidden" name="state" value="hollaatyourboy">
+							<input type="hidden" name="scope" value="repo, user">
 							<input type="submit" value="Connect to GitHub" >
 						</form>
 
