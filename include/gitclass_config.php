@@ -10,7 +10,7 @@ $fggitclass = new gitclass ();
 //hostname, user name, password, database name and table name
 //note that the script will create the table (for example, fgusers in this case)
 //by itself on submitting register.php for the first time
-$fggitclass->InitDB(/*hostname*/'dev.localhost.com',
+$fggitclass->InitDB(/*hostname*/'localhost',
                       /*username*/'root',
                       /*password*/'root',
                       /*database name*/'easy_doc',
