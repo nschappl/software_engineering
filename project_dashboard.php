@@ -69,6 +69,7 @@
 			$("#github_login_module").hide();
 			$("#github_success").hide();
 			$("#track_project").hide();
+
 			
 			<?php
 				$token = $fgmembersite->getusertoken();
@@ -86,7 +87,8 @@
 			});
 			
 			$(".add_button").click(function() {
-				
+				$(".proj_name").removeClass("redish");
+				$(this).parent().prev().addClass("redish");
 				$("#track_project").hide();
 				$("#title").val("");
 				$("#client").val("");
@@ -96,8 +98,7 @@
 				$("#repo_url").val(url);
 				var name = $(this).parent().prev().text();
 				$("#title").val(name);
-				$(".proj_name").removeClass("redish");
-				$(this).parent().prev().addClass("redish");
+
 
 			});
 			
@@ -232,7 +233,6 @@
 						<?php
                         
                         $repos = $fggitclass->getRepos();
-                        exit();
 						echo '<table class="table table-bordered">';
 						foreach ($repos as $repo) {
 							echo '<tr>';
