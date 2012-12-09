@@ -60,6 +60,7 @@ class gitclass {
     
     function getRepos() 
     {
+    
         if(!$this->DBLogin())
         {
             $this->HandleError("Database login failed!");
@@ -100,9 +101,9 @@ class gitclass {
     
     function DBLogin()
     {
-
+        
         $this->connection = mysql_connect($this->db_host,$this->username,$this->pwd);
-
+        
         if(!$this->connection)
         {   
             $this->HandleDBError("Database Login failed! Please make sure that the DB login credentials provided are correct");
