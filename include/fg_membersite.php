@@ -197,7 +197,7 @@ class FGMembersite
         $user_id = $this->getuserid();
 
         $update = "UPDATE users SET token='".$token."' WHERE id_user='".$user_id."'" ;  
- 
+
         if(!mysql_query( $update ,$this->connection)) {
             $this->HandleDBError("Error inserting data to the table\nquery:$insert_query");
             return false;

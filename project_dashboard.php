@@ -22,16 +22,32 @@
 		$response = curl_exec($ch);
 
 		preg_match('/access_token=([0-9a-f]+)/', $response, $out);
-		echo $out[1];
-		curl_close($ch);
 
+		curl_close($ch);
+		
 		if($out[1])
 		{
+			echo "THIS IS RUNNING";
 			$fgmembersite->insertToken($out[1]);
 		}
 
+		
 
 	}
+//	$token = $fgmembersite->getusertoken();
+
+	//if($token != NULL)
+	//{
+	//	$client = new Github\Client();
+	//	$client->authenticate($token, $password=NULL, Github\Client::AUTH_HTTP_TOKEN);
+	//	var_dump($client->api('current_user'));
+	//	$repositories = $client->api('current_user')->repositories();
+	//	echo "POOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOP.............";
+	//	var_dump($repositories);
+	//}
+
+	
+
 
 
 ?>
@@ -58,30 +74,21 @@
         </script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			
-
+			$("#github_login_module").hide()
+			$("#github_success").hide()
 			<?php
 				$token = $fgmembersite->getusertoken();
+
 				if ($token==NULL){ 
-					echo "$(\"#github_login_module\").hide();";
+					echo "$(\"#github_login_module\").show();";
+				}
+				else {
 					echo "$(\"#github_success\").show();";
 				}
 			?>
-			
-			//if ($.cookie("gh_authenticated") == "yes"){ //NEED JQUERY COOKIE PLUGIN
-			//if (<?php echo $_COOKIE["gh_authenticated"]; ?>.match(/^yes$/)){
-			//	$("#github_login_module").hide();
-			//	$("#github_success").show();
-			//}
-			
-			$("a#gh_logout").click(function(event){  
-				alert("Thanks for visiting!");
-				<?php
-					setcookie("gh_authenticated","no");
-					setcookie("gh_username","-");
-					setcookie("gh_password","-");
-					//$fgmembersite->RedirectToURL("./project_dashboard.php");
-				?>
+			$("#gh_logout").click(function() {
+				
+				window.location.href = "./project_dashboard.php";
 			});
 		 });	
 	</script>
@@ -163,8 +170,7 @@
                     <div class="module_content">
 						<img width="180px" src="./images/github-logo.png">
 						<br />
-                        <p>You are successfully logged into Github as <b>
-						<?php echo $_COOKIE["gh_username"];?></b> <a style="float: right;" id="gh_logout" href="#">Logout</a></p>
+                        <p>You are successfully logged into your GitHub account <a style="float: right; color: #0099FF; cursor: pointer; margin-bottom: 10px;" id="gh_logout">Logout</a></p>
 						
                     </div>
                 </article>
