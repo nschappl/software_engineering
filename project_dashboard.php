@@ -81,8 +81,10 @@
         </script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$("#github_login_module").hide()
-			$("#github_success").hide()
+			$("#github_login_module").hide();
+			$("#github_success").hide();
+			$("#track_project").hide();
+			
 			<?php
 				$token = $fgmembersite->getusertoken();
 
@@ -93,8 +95,13 @@
 					echo "$(\"#github_success\").show();";
 				}
 			?>
+			
 			$("#gh_logout").click(function() {
 				window.location.href = "./disassociate_github.php";
+			});
+			
+			$("#add_button").click(function() {
+				$("#track_project").slideDown();
 			});
 		 });	
 	</script>
@@ -103,6 +110,7 @@
 
 
 <body>
+<?php var_dump($_POST); ?>
 	<header id="header">
 		<hgroup>
 			<h1 class="site_title"><a href="index.php">Easy Doc</a></h1>
@@ -157,8 +165,9 @@
                     <header><h3>GitHub Authentication</h3></header>
                     <div class="module_content">
 						<img width="180px" src="./images/github-logo.png">
-						<br /><br />
-
+						<br />
+						<h4 class="alert_error">You are currently not connected to GitHub.  Connect below!</h4>
+						<br />
 						<form action="https://github.com/login/oauth/authorize" method="GET">
 							<input type="hidden" name="client_id" value="d12c2803a9453ba44900" >
 							<input type="hidden" name="redirect_uri" value="http://127.0.0.1:8080/project_dashboard.php">
@@ -176,7 +185,7 @@
                     <div class="module_content">
 						<img width="180px" src="./images/github-logo.png">
 						<br />
-						<h4 class="alert_success">You are successfully logged into Github as <?php echo $general_info['login']; ?> <a style="float: right; color: #0099FF; cursor: pointer; margin-right:10px; font-weight: 400;" id="gh_logout">Logout</a></h4>
+						<h4 class="alert_success">You are successfully logged into GitHub as <?php echo $general_info['login']; ?> <a style="float: right; color: #0099FF; cursor: pointer; margin-right:10px; font-weight: 400;" id="gh_logout">Logout</a></h4>
                     </div>
                 </article>
 
@@ -190,63 +199,64 @@
 								foreach($repositories as $repo) {
 									echo '<tr>';
 									echo '<td>'.$repo['name'].'</td>';
-									echo '<td><form class="form-inline" action="" method="post"/><input type="hidden" name="submitted" id="submitted" value="1"/><input type="hidden" name="repo_url" id="repo_url" value="'.$repo['html_url'].'"/><button type="submit" class="btn">Add</button></form></td>';
+									echo '<td><button id="add_button">Add</button></td>';
       								echo '</tr>';
 								}
-								
 								echo '</table>';
                     	?>
                     </div>
             </article><!-- end of github projects article -->
 
-		<article class="module width_half">
-                    <header><h3>Tracked EasyDoc Projects</h3></header>
-                    <div class="module_content">
-    					<?php $repos = $fggitclass->getRepos();
+			<article class="module width_half">
+					<header><h3>Tracked EasyDoc Projects</h3></header>
+					<div class="module_content">
+						<?php $repos = $fggitclass->getRepos();
 
-     					echo '<table class="table table-bordered">';
-     					foreach ($repos as $repo) {
-      						echo '<tr>';
+						echo '<table class="table table-bordered">';
+						foreach ($repos as $repo) {
+							echo '<tr>';
 							echo '<td>'.$repo['id_repo'].'</td>';
 							echo '<td>'.$repo['name'].'</td>';
-      						echo '</tr>';
-     					}
-     
-    	 				echo '</table>';
-    
-    					?>
-                    </div>
-                </article><!-- end of messages article -->
+							echo '</tr>';
+						}
+	 
+						echo '</table>';
+	
+						?>
+					</div>
+			</article><!-- end of messages article -->
 
 		<div class="clear"></div>
 
-		<article class="module width_full">
+		<article id="track_project" class="module width_full">
 			<header><h3>Track New Project</h3></header>
 				<div class="module_content">
-
-                                                <fieldset style="width:48%; float:left; margin-right: 3%;"> <!--     to make two field float next to one another, adjust values accordingly -->
-                                                        <label>Title</label>
-                                                        <input type="text" style="width:92%;">
-                                                </fieldset>
-
-                                                <fieldset style="width:48%; float:left;"> <!-- to make two field     float next to one another, adjust values accordingly -->
-                                                        <label>Client</label>
-                                                        <input type="text" style="width:92%;">
-                                                </fieldset>
-                                                <div class="clear"></div>
-
-
-						<fieldset>
-							<label>Executive Summary</label>
-							<textarea rows="12"></textarea>
-						</fieldset>
+					<form action="" method="post">
+						<input type="hidden" name="submitted" id="submitted" value="1"/>
+						<input type="hidden" name="repo_url" id="repo_url" value="<?php echo $repo['html_url']; ?>"/>
+							<fieldset style="width:48%; float:left; margin-right: 3%;"> <!--     to make two field float next to one another, adjust values accordingly -->
+									<label>Title</label>
+									<input type="text" name="title" style="width:92%;">
+							</fieldset>
+	
+							<fieldset style="width:48%; float:left;"> <!-- to make two field     float next to one another, adjust values accordingly -->
+									<label>Client</label>
+									<input type="text" name="client" style="width:92%;">
+							</fieldset>
+							<div class="clear">		
+	
+							<fieldset>
+								<label>Project Summary</label>
+								<textarea name="summary" rows="12"></textarea>
+							</fieldset>
 				</div>
-			<footer>
-				<div class="submit_link">
-					<input type="submit" value="Publish" class="alt_btn">
-					<input type="submit" value="Reset">
-				</div>
-			</footer>
+						<footer>
+							<div class="submit_link">
+								<input type="submit" value="Add to EasyDoc" class="alt_btn">
+							</div>
+						</footer>
+					</form>
+
 		</article><!-- end of post new article -->
 
                 <h4 class="alert_info">This could be an informative message.</h4>
