@@ -127,9 +127,11 @@
 
 				if ($token==NULL){ 
 					echo "$(\"#github_login_module\").show();";
+					echo "$(\"#github_projects\").hide();";
 				}
 				else {
 					echo "$(\"#github_success\").show();";
+					echo "$(\"#github_projects\").show();";
 				}
             ?>
 			
