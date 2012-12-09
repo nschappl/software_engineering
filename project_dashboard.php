@@ -132,8 +132,87 @@
 		.redish{
 			color: red;
 		}
-				
+		
+		.button, .button span {
+			display: inline-block;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+		}
+		.button {
+			white-space: nowrap;
+			line-height:1em;
+			position:relative;
+			outline: none;
+			overflow: visible; /* removes extra side padding in IE */
+			cursor: pointer;
+			border: 1px solid #999;/* IE */
+			border: rgba(0, 0, 0, .2) 1px solid;/* Saf4+, Chrome, FF3.6 */
+			border-bottom:rgba(0, 0, 0, .4) 1px solid;
+			-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+			-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+			box-shadow: 0 1px 2px rgba(0,0,0,.2);
+			background: -moz-linear-gradient(
+				center top,
+				rgba(255, 255, 255, .1) 0%,
+				rgba(0, 0, 0, .1) 100%
+			);/* FF3.6 */
+			background: -webkit-gradient(
+				linear,
+				center bottom,
+				center top,
+				from(rgba(0, 0, 0, .1)),
+				to(rgba(255, 255, 255, .1))
+			);/* Saf4+, Chrome */
+			filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#19FFFFFF', EndColorStr='#19000000'); /* IE6,IE7 */
+			-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#19FFFFFF', EndColorStr='#19000000')"; /* IE8 */
+			-moz-user-select: none;
+			-webkit-user-select:none;
+			-khtml-user-select: none;
+			user-select: none;
+			margin-bottom:10px;
+		}
+		.button.full, .button.full span {
+			display: block;
+		}
+		.button:hover, .button.hover {
+			background: -moz-linear-gradient(
+				center top,
+				rgba(255, 255, 255, .2) 0%,
+				rgba(255, 255, 255, .1) 100%
+			);/* FF3.6 */
+			background: -webkit-gradient(
+				linear,
+				center bottom,
+				center top,
+				from(rgba(255, 255, 255, .1)),
+				to(rgba(255, 255, 255, .2))
+			);/* Saf4+, Chrome */
+			filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#33FFFFFF', EndColorStr='#19FFFFFF'); /* IE6,IE7 */
+			-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#33FFFFFF', EndColorStr='#19FFFFFF')"; /* IE8 */
+		}
+		.button:active, .button.active {
+			top:1px;
+		}
+		.button span {
+			position: relative;
+			color:#fff;
+			text-shadow:0 1px 1px rgba(0, 0, 0, 0.25);
+			border-top: rgba(255, 255, 255, .2) 1px solid;
+			padding:0.6em 1.3em;
+			line-height:1em;
+			text-decoration:none;
+			text-align:center;
+			white-space: nowrap;
+		}		
 
+		.button.small span {
+			font-size:12px;
+		}
+		
+		.button.blue {
+			background-color: #00ADEE;
+		}
 	</style>
 
 </head>
@@ -168,7 +247,7 @@
                 <h3>GitHub</h3>
                 <ul class="toggle">
                         <li class="icn_settings"><a href="#">Configure GitHub Connectivity</a></li>
-                        <li class="icn_jump_back"><a href="#">GitHub Homepage</a></li>
+                        <li class="icn_jump_back"><a target="_blank" href="http://www.github.com">GitHub Homepage</a></li>
 		<h3>Projects</h3>
 		<ul class="toggle">
                     <li class="icn_new_article"><a href="#">Add a GitHub Project
@@ -229,7 +308,7 @@
 								foreach($repositories as $repo) {
 									echo '<tr>';
 									echo '<td class="proj_name">'.$repo['name'].'</td>';
-									echo '<td><button class="add_button button">Add</button></td>';
+									echo '<td style="padding-left: 200px;"><a class="add_button button small blue" href="#"><span>Add</span></a></td>'; 
 									echo '<td class="hidden">'.$repo['html_url'].'</td>';
 									echo '<td class="hidden">'.$general_info['login'].'</td>';
       								echo '</tr>';
