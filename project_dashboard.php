@@ -112,6 +112,7 @@
 			
 			$("#x").click(function() {
 				$("#track_project").hide();
+				$(".proj_name").removeClass("redish");
 			});
 			
 		 });	
