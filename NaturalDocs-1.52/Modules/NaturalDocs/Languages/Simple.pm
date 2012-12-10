@@ -10,7 +10,7 @@
 #
 ###############################################################################
 
-# This file is part of Natural Docs, which is Copyright © 2003-2010 Greg Valure
+# This file is part of Natural Docs, which is Copyright Â© 2003-2010 Greg Valure
 # Natural Docs is licensed under version 3 of the GNU Affero General Public License (AGPL)
 # Refer to License.txt for the complete details
 
@@ -164,7 +164,7 @@ sub SetPrototypeEndersFor #(type, enders)
 sub ParseFile #(sourceFile, topicsList)
     {
     my ($self, $sourceFile, $topicsList) = @_;
-
+    
     open(SOURCEFILEHANDLE, '<' . $sourceFile)
         or die "Couldn't open input file " . $sourceFile . "\n";
 
@@ -174,7 +174,10 @@ sub ParseFile #(sourceFile, topicsList)
     my @codeLines;
     my $lastCommentTopicCount = 0;
     my $functionLines = 0;
+    my $paramLines = 0;
+    my $retLines = 0;
     my $voidLines = 0;
+    my $wasCode = 0;
     if ($self->Name() eq 'Text File')
         {
         @commentLines = $lineReader->GetAll();
@@ -188,8 +191,15 @@ sub ParseFile #(sourceFile, topicsList)
 
         while (defined $line)
             {
+		if($wasCode == 0)
+		{
+		$functionLines = 0;
+				$paramLines = 0;
+	   			 $retLines = 0;
+		}
+		else{
+		$wasCode = 0;};
             my $originalLine = $line;
-
 
             # Retrieve multiline comments.  This leaves $line at the next line.
             # We check for multiline comments before single line comments because in Lua the symbols are --[[ and --.
@@ -209,7 +219,20 @@ sub ParseFile #(sourceFile, topicsList)
                 for (;;)
                     {
                     $lineRemainder = $self->StripClosingSymbol(\$line, $closingSymbol);
-
+		    if((index($line, 'Function: ') != -1))
+			    {
+	            		$functionLines = 1;
+				$paramLines = 0;
+	   			 $retLines = 0;
+			    };
+                	if((index($line, 'Parameters:') != -1))
+			{
+	            		$paramLines = 1;
+			}; 
+			if((index($line, 'Returns:') != -1))
+			{
+	            		$retLines = 1;
+			};
                     push @commentLines, $line;
 
                     #  If we found an end comment symbol...
@@ -217,7 +240,6 @@ sub ParseFile #(sourceFile, topicsList)
                         {  last;  };
 
                     $line = $lineReader->Get();
-
                     if (!defined $line)
                         {  last;  };
                     };
@@ -240,7 +262,6 @@ sub ParseFile #(sourceFile, topicsList)
                 do
                     {
                     push @commentLines, $line;
-                    $line = $lineReader->Get();
 
                     if (!defined $line)
                         {  goto EndDo;  };
@@ -257,34 +278,14 @@ sub ParseFile #(sourceFile, topicsList)
                 {
                 push @codeLines, $line;
                 $line = $lineReader->Get();
+		$wasCode = 1;
                 };
 
 
             # If there were comments, send them to Parser->OnComment().
             if (scalar @commentLines)
                 {
-		    if($functionLines != 1)
-			{
-			if((index($line, 'Function: ') != -1))
-			{
-	            		$functionLines = 1;
-			}
-			else
-			{
-				$functionLines = 0;
-			}; 
-			}
-		    elsif ($functionLines != 3)
-		    {
-                	if((index($line, 'Parameters: ') != -1))
-			{
-	            		$functionLines = 3;
-			}
-			else
-			{
-				$functionLines = 2;
-			}; 
-			};
+		
                 # First process any code lines before the comment.
                 if (scalar @codeLines)
                     {
@@ -292,7 +293,37 @@ sub ParseFile #(sourceFile, topicsList)
                     $lineNumber += scalar @codeLines;
                     @codeLines = ( );
                     };
-
+		if($paramLines == 0 && $functionLines == 1)
+		{
+		if ((index($line, '()') == -1))
+		{
+			my @lines;
+			push @commentLines, 'DOCUMENTATION INCOMPLETE - MISSING PARAMETERS DOCUMENTATION';
+			if($retLines != 0)
+			{
+			NaturalDocs::Parser->OnComment(\@commentLines, $lineNumber);
+			$voidLines = 0;
+			$lineNumber += scalar @commentLines;
+			@commentLines = ( );
+			};
+			$paramLines = 1;
+		};
+		
+		};
+		if($retLines == 0 && $functionLines == 1)
+		{
+		if ((index($line, 'void') == -1))
+		{
+			my @lines;
+			push @commentLines, 'DOCUMENTATION INCOMPLETE - MISSING RETURN DOCUMENTATION';
+			NaturalDocs::Parser->OnComment(\@commentLines, $lineNumber);
+			$voidLines = 0;
+			$retLines = 1;
+			$lineNumber += scalar @commentLines;
+			@commentLines = ( );
+		};
+		
+		};
                 $lastCommentTopicCount = NaturalDocs::Parser->OnComment(\@commentLines, $lineNumber);
                 $lineNumber += scalar @commentLines;
                 @commentLines = ( );
@@ -301,27 +332,15 @@ sub ParseFile #(sourceFile, topicsList)
 	    	{
 		if($functionLines == 0)
 		{
-		if (((index($line, 'sub ') != -1) || ((index($line, 'void ') != -1) && (index($line, '(') != -1)) || ((index($line, 'int ') != -1) && (index($line, '(') != -1)) || ((index($line, 'float ') != -1) && (index($line, '(') != -1)) || ((index($line, 'char ') != -1) && (index($line, '(') != -1)) || ((index($line, 'string ') != -1) && (index($line, '(') != -1)) || ((index($line, 'double ') != -1) && (index($line, '(') != -1)) || ((index($line, 'boolean ') != -1) && (index($line, '(') != -1))) && (index($line, ';') == -1) && (index($line, '=') == -1))
+		if (((index($line, 'sub ') != -1) || ((index($line, ' void ') != -1) && (index($line, '(') != -1)) || ((index($line, ' int ') != -1) && (index($line, '(') != -1)) || ((index($line, ' float ') != -1) && (index($line, '(') != -1)) || ((index($line, ' char ') != -1) && (index($line, '(') != -1)) || ((index($line, ' string ') != -1) && (index($line, '(') != -1)) || ((index($line, ' double ') != -1) && (index($line, '(') != -1)) || ((index($line, ' boolean ') != -1) && (index($line, '(') != -1))) && (index($line, ';') == -1) && (index($line, '=') == -1))
 		{
 			push @commentLines, 'Function: '.$line;
 			push @commentLines, 'DOCUMENTATION MISSING';
 			NaturalDocs::Parser->OnComment(\@commentLines, $lineNumber);
 			$voidLines = 0;
-			$functionLines = 0;
+			#$functionLines = 0;
 			@commentLines = ( );
 		}
-		}
-		elsif($functionLines == 2)
-		{
-		if (((index($line, 'sub ') != -1) || ((index($line, 'void ') != -1) && (index($line, '(') != -1)) || ((index($line, 'int ') != -1) && (index($line, '(') != -1)) || ((index($line, 'float ') != -1) && (index($line, '(') != -1)) || ((index($line, 'char ') != -1) && (index($line, '(') != -1)) || ((index($line, 'string ') != -1) && (index($line, '(') != -1)) || ((index($line, 'double ') != -1) && (index($line, '(') != -1)) || ((index($line, 'boolean ') != -1) && (index($line, '(') != -1))) && (index($line, ';') == -1) && (index($line, '=') == -1))
-		{
-			push @commentLines, 'Parameters: DOCUMENTATION INCOMPLETE';
-			NaturalDocs::Parser->OnComment(\@commentLines, $lineNumber);
-			$voidLines = 0;
-			$functionLines = 1;
-			$lineNumber += scalar @commentLines;
-			@commentLines = ( );
-		};
 		};
 	     };
             };  # while (defined $line)
@@ -491,7 +510,7 @@ use constant ENDER_REVERT_TO_ACCEPTED => 4;
 #
 #   Returns:
 #
-#       ENDER_ACCEPT - The ender is accepted and the prototype is finished.
+#       ENDER_ACCEPT - The ender is accepted and the prototype is finished.a
 #       ENDER_IGNORE - The ender is rejected and parsing should continue.  Note that the prototype will be rejected as a whole
 #                                  if all enders are ignored before reaching the end of the code.
 #       ENDER_ACCEPT_AND_CONTINUE - The ender is accepted so the prototype may stand as is.  However, the prototype might
