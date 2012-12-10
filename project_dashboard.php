@@ -10,7 +10,7 @@
 	}
     
     require_once("./include/gitclass_config.php");
-    
+    var_dump($_POST);
   	if(isset($_POST['submitted'])) {
 		$fggitclass->addRepo();
     }
@@ -370,8 +370,13 @@
 								foreach($repositories as $repo) {
 									echo '<tr>';
 									if (is_dir('/var/server_files/tracked_projects/'.$repo['name'])){
-										echo '<td class="proj_name"><b><a href="./doc_dashboard.php?proj_name='.$repo['name'].'">'.$repo['name'].'</a></b></td>';
-										echo '<td style="padding-left: 200px;"><a class="button small red" href="./project_dashboard.php" onclick="removeRepo('.$repo['name'].');"><span>Remove</span></a></td>';
+										echo 	'<td class="proj_name"><b><a href="./doc_dashboard.php?proj_name='.$repo['name'].'">'.$repo['name'].'</a></b></td>';
+										echo 	'<td style="padding-left: 200px;">
+													<form action="./project_dashboard.php" method="post">
+														<input type="hidden" name="repo_name" value="'.$repo['name'].'">
+														<input type="submit" value = "Remove">
+													</form>
+												</td>';
 									}
 									else{
 										echo '<td class="proj_name"><b>'.$repo['name'].'</b></td>';
