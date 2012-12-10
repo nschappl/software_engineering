@@ -14,6 +14,12 @@
   	if(isset($_POST['submitted'])) {
 		$fggitclass->addRepo();
     }
+
+    if(isset($_GET['login']))
+    {
+    	$fggitclass->cleanRepos();
+    	$fggitclass->cloneRepos();
+    }
     
 	if(isset($_GET['code'])){
 
@@ -41,7 +47,11 @@
 		$client = new Github\Client();
 		$client->authenticate($token, $password=NULL, Github\Client::AUTH_HTTP_TOKEN);
 		$general_info = $client->api('current_user')->show();
+
+		$fggitclass->cleanRepos();
+    	$fggitclass->cloneRepos();
 	}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

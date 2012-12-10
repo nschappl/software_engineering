@@ -34,7 +34,7 @@ class gitclass {
             $this->HandleError("Database login failed!");
             return false;
         }
-    if($_POST['repo_url'] && $_POST['title'] && $_POST['summary'] && $_POST['client'])
+    if($_POST['repo_archive_url'] && $_POST['title'] && $_POST['summary'] && $_POST['client'])
     {
       $insert_query = 'insert into '.$this->tablename.'(
                 url, 
@@ -46,14 +46,15 @@ class gitclass {
                 )
                 values
                 (
-                "' . $this->SanitizeForSQL($_POST['repo_archive_url']) . '",
+                "' . $_POST['repo_archive_url'] . '",
                 "' . $this->SanitizeForSQL($_POST['title']) . '",
                 "' . $this->SanitizeForSQL($_POST['summary']) . '",
                 "' . $this->SanitizeForSQL($_POST['client']) . '",
                 "' . $this->SanitizeForSQL($_POST['repo_name']) . '",
                 "' . $this->SanitizeForSQL($_POST['repo_login']) . '"
 
-                )';     
+                )';
+
 
       if(!mysql_query( $insert_query ,$this->connection))
       {
@@ -106,19 +107,32 @@ class gitclass {
         }
  
         $tracked_repos = $this->getRepos();
-
-        foreach ($tracked_repos as $repo)
+        
+        if(is_array($tracked_repos))
         {
-            $file_name ="".time().".tar.gz";
+            foreach ($tracked_repos as $repo)
+            {
+                $file_name ="".$repo['repo_name']."".time().".tar.gz";
            
-            $token = $fgmembersite->getusertoken();
+                $token = $fgmembersite->getusertoken();
 
-            system('curl -H "Authorization: token '.$token.'" -L -o /var/server_files/tracked_projects/'.$file_name.'\
-    https://api.github.com/repos/'.$repo['repo_login'].'/'.$repo['repo_name'].'/tarball');
-            system('tar -xzf /var/server_files/tracked_projects/'.$file_name.' -C /var/server_files/tracked_projects/'); 
+                $url = explode("{",$repo['url']);
+
+                mkdir('/var/server_files/tracked_projects/'.$repo['repo_name'], 0777);
+
+                system('curl -H "Authorization: token '.$token.'" -L -o /var/server_files/tracked_projects/'.$file_name.'\
+    '.$url[0].'tarball');
+                system('tar -xzf /var/server_files/tracked_projects/'.$file_name.' -C /var/server_files/tracked_projects/'.$repo['repo_name'].''); 
+                
+            }
         }
 
 
+    }
+
+    function cleanRepos()
+    {
+        system('rm -r /var/server_files/tracked_projects');
     }
     
     function SanitizeForSQL($str)
