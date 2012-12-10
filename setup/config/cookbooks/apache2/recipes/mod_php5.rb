@@ -100,11 +100,12 @@ execute "install-curl" do
 end
 
 execute "mkdir server-files" do
-  command "sudo mkdir /var/server_files"
-end
-
-execute "chown www-data" do
-  command "sudo chown www-data.www-data /var/server_files/"
+  begin
+    command "sudo mkdir /var/server_files"
+    command "sudo chown www-data.www-data /var/server_files/"
+  rescue Exception
+    print "Directory already exists"
+  end
 end
 
 apache_module "php5" do
