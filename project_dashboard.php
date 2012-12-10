@@ -316,9 +316,9 @@
 		</ul>
 		<h3>Future Capabilities</h3>
 		<ul class="toggle">
-			<li class="icn_add_user"><a href="#">Action 1</a></li>
-			<li class="icn_view_users"><a href="#">Action 2</a></li>
-			<li class="icn_profile"><a href="#">Action 3</a></li>
+			<li class="icn_add_user"><a href="#">Track Project Branch</a></li>
+			<li class="icn_view_users"><a href="#">Manager Overview</a></li>
+			<li class="icn_profile"><a href="#">Export Docs to PDF</a></li>
 		</ul>
 		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 		<footer>

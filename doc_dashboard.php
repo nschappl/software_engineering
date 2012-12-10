@@ -76,9 +76,9 @@ $repo = $fggitclass->getRepo($_GET['proj_name']);
 		</ul>
 		<h3>Future Capabilities</h3>
 		<ul class="toggle">
-			<li class="icn_add_user"><a href="#">Action 1</a></li>
-			<li class="icn_view_users"><a href="#">Action 2</a></li>
-			<li class="icn_profile"><a href="#">Action 3</a></li>
+			<li class="icn_add_user"><a href="./project_dashboard.php">Track Project Branch</a></li>
+			<li class="icn_view_users"><a href="./project_dashboard.php">Manager Overview</a></li>
+			<li class="icn_profile"><a href="./project_dashboard.php">Export Docs to PDF</a></li>
 		</ul>
 
 		<footer>
