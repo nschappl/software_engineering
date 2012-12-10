@@ -55,7 +55,7 @@ $repo = $fggitclass->getRepo($_GET['proj_name']);
 			<a class="logout_user" href="logout.php" title="Logout">Logout</a>
 		</div>
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="index.html">Projects</a> <div class="breadcrumb_divider"></div> <a class="current"><?php echo $_GET['proj_name']; ?></a></article>
+			<article class="breadcrumbs"><a href="index.php">Projects</a> <div class="breadcrumb_divider"></div> <a class="current"><?php echo $_GET['proj_name']; ?></a></article>
 		</div>
 	</section><!-- end of secondary bar -->
 
@@ -131,7 +131,7 @@ $repo = $fggitclass->getRepo($_GET['proj_name']);
 				<div class="module_content">
                     <?php
                     if(isset($_GET['proj_name'])){
-                        if (!is_dir('/var/www/tracked/'.$_GET['proj_name'].'-html')){
+                        if ((!is_dir('/var/www/tracked/'.$_GET['proj_name'].'-html') or !is_dir('/var/www/tracked/'.$_GET['proj_name'].'-data'))){
                             mkdir('/var/www/tracked/'.$_GET['proj_name'].'-html');
                             mkdir('/var/www/tracked/'.$_GET['proj_name'].'-data');
                             system('/var/www/NaturalDocs-1.52/NaturalDocs -i /var/server_files/tracked_projects/'.$_GET['proj_name'].' -o FramedHTML /var/www/tracked/'.$_GET['proj_name'].'-html -p /var/www/tracked/'.$_GET['proj_name'].'-data');
