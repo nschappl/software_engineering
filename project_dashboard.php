@@ -380,9 +380,9 @@
 										echo 	'<td class="proj_name"><b><a href="./doc_dashboard.php?proj_name='.$repo['name'].'">'.$repo['name'].'</a></b></td>';
 										echo 	'<td style="padding-left: 200px;">
 													<form action="./project_dashboard.php" method="post">
-														<input type="hidden" name="repo_name" value="'.$repo['name'].'">
-														<input type="hidden" name="remove_sub" value="1">
-														<a class="submit_form button small red" href="#"><span>Remove</span></a>
+														<input style="display: none;" type="hidden" name="repo_name" value="'.$repo['name'].'">
+														<input style="display: none;" type="hidden" name="remove_sub" value="1">
+														<a style="display: block;" class="submit_form button small red" href="#"><span>Remove</span></a>
 													</form>
 												</td>';
 									}
