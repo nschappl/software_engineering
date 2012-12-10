@@ -10,9 +10,14 @@
 	}
     
     require_once("./include/gitclass_config.php");
-    var_dump($_POST);
+
   	if(isset($_POST['submitted'])) {
 		$fggitclass->addRepo();
+    }
+
+    if(isset($_POST['remove_sub']))
+    {
+    	$fggitclass->removeRepo();
     }
 
     if(isset($_GET['login']))
@@ -374,6 +379,7 @@
 										echo 	'<td style="padding-left: 200px;">
 													<form action="./project_dashboard.php" method="post">
 														<input type="hidden" name="repo_name" value="'.$repo['name'].'">
+														<input type="hidden" name="remove_sub" value="1">
 														<input type="submit" value = "Remove">
 													</form>
 												</td>';

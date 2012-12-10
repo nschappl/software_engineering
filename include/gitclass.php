@@ -68,6 +68,7 @@ class gitclass {
 
     function removeRepo()
     {
+
         if(isset($_POST['remove_sub']))
         {
             return false;
