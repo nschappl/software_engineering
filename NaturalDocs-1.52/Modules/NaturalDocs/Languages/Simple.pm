@@ -332,7 +332,7 @@ sub ParseFile #(sourceFile, topicsList)
 	    	{
 		if($functionLines == 0)
 		{
-		if (((index($line, 'sub ') != -1) || ((index($line, ' void ') != -1) && (index($line, '(') != -1)) || ((index($line, ' int ') != -1) && (index($line, '(') != -1)) || ((index($line, ' float ') != -1) && (index($line, '(') != -1)) || ((index($line, ' char ') != -1) && (index($line, '(') != -1)) || ((index($line, ' string ') != -1) && (index($line, '(') != -1)) || ((index($line, ' double ') != -1) && (index($line, '(') != -1)) || ((index($line, ' boolean ') != -1) && (index($line, '(') != -1))) && (index($line, ';') == -1) && (index($line, '=') == -1))
+		if (((index($line, 'sub ') != -1) || ((index($line, 'void ') != -1) && (index($line, '(') != -1)) || ((index($line, 'int ') != -1) && (index($line, '(') != -1)) || ((index($line, 'float ') != -1) && (index($line, '(') != -1)) || ((index($line, 'char ') != -1) && (index($line, '(') != -1)) || ((index($line, 'string ') != -1) && (index($line, '(') != -1)) || ((index($line, 'double ') != -1) && (index($line, '(') != -1)) || ((index($line, 'boolean ') != -1) && (index($line, '(') != -1))) && (index($line, ';') == -1) && (index($line, '=') == -1) && (index($line, 'catch') == -1) )
 		{
 			push @commentLines, 'Function: '.$line;
 			push @commentLines, 'DOCUMENTATION MISSING';
