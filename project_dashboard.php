@@ -8,7 +8,6 @@
 		$fgmembersite->RedirectToURL("./login.php");
 		exit();
 	}
-    var_dump($_POST);
     require_once("./include/gitclass_config.php");
 
   	if(isset($_POST['submitted'])) {
