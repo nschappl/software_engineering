@@ -50,7 +50,7 @@ if(!$fgmembersite->CheckLogin())
 			<a class="logout_user" href="logout.php" title="Logout">Logout</a>
 		</div>
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="index.html">Projects</a> <div class="breadcrumb_divider"></div> <a class="current">Project_Name</a></article>
+			<article class="breadcrumbs"><a href="index.html">Projects</a> <div class="breadcrumb_divider"></div> <a class="current"><?php echo $_GET['proj_name']; ?></a></article>
 		</div>
 	</section><!-- end of secondary bar -->
 
