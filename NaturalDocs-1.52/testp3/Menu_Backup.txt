@@ -1,0 +1,244 @@
+Format: 1.52
+
+
+# You can add a title and sub-title to your menu like this:
+# Title: [project name]
+# SubTitle: [subtitle]
+
+# You can add a footer to your documentation like this:
+# Footer: [text]
+# If you want to add a copyright notice, this would be the place to do it.
+
+# You can add a timestamp to your documentation like one of these:
+# Timestamp: Generated on month day, year
+# Timestamp: Updated mm/dd/yyyy
+# Timestamp: Last updated mon day
+#
+#   m     - One or two digit month.  January is "1"
+#   mm    - Always two digit month.  January is "01"
+#   mon   - Short month word.  January is "Jan"
+#   month - Long month word.  January is "January"
+#   d     - One or two digit day.  1 is "1"
+#   dd    - Always two digit day.  1 is "01"
+#   day   - Day with letter extension.  1 is "1st"
+#   yy    - Two digit year.  2006 is "06"
+#   yyyy  - Four digit year.  2006 is "2006"
+#   year  - Four digit year.  2006 is "2006"
+
+
+# --------------------------------------------------------------------------
+# 
+# Cut and paste the lines below to change the order in which your files
+# appear on the menu.  Don't worry about adding or removing files, Natural
+# Docs will take care of that.
+# 
+# You can further organize the menu by grouping the entries.  Add a
+# "Group: [name] {" line to start a group, and add a "}" to end it.
+# 
+# You can add text and web links to the menu by adding "Text: [text]" and
+# "Link: [name] ([URL])" lines, respectively.
+# 
+# The formatting and comments are auto-generated, so don't worry about
+# neatness when editing the file.  Natural Docs will clean it up the next
+# time it is run.  When working with groups, just deal with the braces and
+# forget about the indentation and comments.
+# 
+# --------------------------------------------------------------------------
+
+
+Group: Blend  {
+
+   File: blend.c  (blend/src/blend.c)
+   File: bulles.c  (blend/src/bulles.c)
+   File: Macros  (blend/src/csc.h)
+   File: Queue.c  (blend/src/queue.c)
+   File: splitpart.c  (blend/src/splitpart.c)
+   }  # Group: Blend
+
+Group: Common  {
+
+   File: api.h  (common/src/api.h)
+   File: common.c  (common/src/common.c)
+   File: common_error  (common/src/common_error.c)
+   File: common_memory.c  (common/src/common_memory.c)
+   File: common_pastix.h  (common/src/common_pastix.h)
+   File: common_sort.c  (common/src/common_sort.c)
+   File: common_sort.c  (common/src/common_sort2.c)
+   File: common_sort.c  (common/src/common_sort3.c)
+   File: debug.h  (common/src/debug.h)
+   File: errors.h  (common/src/errors.h)
+   File: nompi.h  (common/src/nompi.h)
+   File: out.h  (common/src/out.h)
+   File: redefine_functions.h  (common/src/redefine_functions.h)
+   File: trace.h  (common/src/trace.h)
+   }  # Group: Common
+
+Group: Example  {
+
+   File: do_not_redispatch_rhs.c  (example/src/do_not_redispatch_rhs.c)
+   File: fmurge.F90  (example/src/fmurge.F90)
+   File: fsimple.F90  (example/src/fsimple.F90)
+   File: fstep-by-step.F90  (example/src/fstep-by-step.F90)
+   File: isolate_zeros.c  (example/src/isolate_zeros.c)
+   File: mult-rhs.c  (example/src/mult-rhs.c)
+   File: multi-comm-step.c  (example/src/multi-comm-step.c)
+   File: multi-comm.c  (example/src/multi-comm.c)
+   File: murge-product.c  (example/src/murge-product.c)
+   File: plot_memory_usage.c  (example/src/plot_memory_usage.c)
+   File: reentrant.c  (example/src/reentrant.c)
+   File: refinement.c  (example/src/refinement.c)
+   File: schur.c  (example/src/schur.c)
+   File: schur2.c  (example/src/schur2.c)
+   File: simple.c  (example/src/simple.c)
+   File: simple_dist.c  (example/src/simple_dist.c)
+   File: simple_param.c  (example/src/simple_param.c)
+   File: step-by-step.c  (example/src/step-by-step.c)
+   File: step-by-step_dist.c  (example/src/step-by-step_dist.c)
+   File: utils.f90  (example/src/utils.F90)
+   }  # Group: Example
+
+Group: Fax  {
+
+   File: symbol_compact.c  (fax/src/symbol_compact.c)
+   File: symbol_costi.c  (fax/src/symbol_costi.c)
+   File: symbol_fax.c  (fax/src/symbol_fax.c)
+   File: symbol_fax_graph.c  (fax/src/symbol_fax_graph.c)
+   File: symbol_faxi_nomerge.c  (fax/src/symbol_faxi.c)
+   }  # Group: Fax
+
+File: genheader  (utils/src/genheader.c)
+
+Group: Matrix_drivers  {
+
+   File: cccread.c  (matrix_drivers/src/cccread.c)
+   File: cccread.h  (matrix_drivers/src/cccread.h)
+   File: chbread.c  (matrix_drivers/src/chbread.c)
+   File: chbread.h  (matrix_drivers/src/chbread.h)
+   File: common_drivers.c  (matrix_drivers/src/common_drivers.c)
+   File: common_drivers.h  (matrix_drivers/src/common_drivers.h)
+   File: cscdread.c  (matrix_drivers/src/cscdread.c)
+   File: cscdread.h  (matrix_drivers/src/cscdread.h)
+   File: fdupread.c  (matrix_drivers/src/fdupread.c)
+   File: fdupread.h  (matrix_drivers/src/fdupread.h)
+   File: get_options.c  (matrix_drivers/src/get_options.c)
+   File: get_options.h  (matrix_drivers/src/get_options.h)
+   File: hbread.c  (matrix_drivers/src/hbread.c)
+   File: hbread.h  (matrix_drivers/src/hbread.h)
+   File: laplacian.c  (matrix_drivers/src/laplacian.c)
+   File: laplacian.h  (matrix_drivers/src/laplacian.h)
+   File: mmread.c  (matrix_drivers/src/mmread.c)
+   File: mmread.h  (matrix_drivers/src/mmread.h)
+   File: olafread.c  (matrix_drivers/src/olafread.c)
+   File: olafread.h  (matrix_drivers/src/olafread.h)
+   File: peerread.c  (matrix_drivers/src/peerread.c)
+   File: peerread.h  (matrix_drivers/src/peerread.h)
+   File: petscread.c  (matrix_drivers/src/petscread.c)
+   File: read_matrix.c  (matrix_drivers/src/read_matrix.c)
+   File: read_matrix.h  (matrix_drivers/src/read_matrix.h)
+   File: rsaread.c  (matrix_drivers/src/rsaread.c)
+   File: rsaread.h  (matrix_drivers/src/rsaread.h)
+   File: threetilesread.c  (matrix_drivers/src/threefilesread.c)
+   File: threetilesread.h  (matrix_drivers/src/threefilesread.h)
+   }  # Group: Matrix_drivers
+
+Group: Murge  {
+
+   Group: Examples  {
+
+      File: murge-dist  (murge/examples/src/murge-dist.c)
+      File: murge-dist  (murge/examples/src/murge-save-load.c)
+      File: murge-global  (murge/examples/src/murge-global.c)
+      File: murge-matrix-and-rhs  (murge/examples/src/multi-matrix-and-rhs.c)
+      File: murge-mm  (murge/examples/src/murge-mm.c)
+      }  # Group: Examples
+
+   File: Murge  (murge/include/murge.h)
+
+   Group: Scripts  {
+
+      File: gendoc.pl  (murge/scripts/gendoc.pl)
+      File: genfort.pl  (murge/scripts/genfort.pl)
+      File: geninterface.pl  (murge/scripts/geninterface.pl)
+      }  # Group: Scripts
+
+   }  # Group: Murge
+
+Group: Parafax  {
+
+   File: cscd.c  (parafax/src/cscd.c)
+   File: cscd_Redispatch  (parafax/src/cscd.h)
+   File: pfax_vect_build  (parafax/src/parafax.c)
+   }  # Group: Parafax
+
+File: PaStiX  (README.txt)
+
+Group: Sopalin  {
+
+   File: bordi.c  (sopalin/src/bordi.c)
+   File: bordi.h  (sopalin/src/bordi.h)
+   File: coefinit.c  (sopalin/src/coefinit.c)
+   File: coefinit.h  (sopalin/src/coefinit.h)
+   File: compute_diag.c  (sopalin/src/compute_diag.c)
+   File: compute_trsm.c  (sopalin/src/compute_trsm.c)
+   File: csc_intern_build.c  (sopalin/src/csc_intern_build.c)
+   File: csc_intern_build.h  (sopalin/src/csc_intern_build.h)
+   File: csc_intern_compute.c  (sopalin/src/csc_intern_compute.c)
+   File: csc_intern_compute.h  (sopalin/src/csc_intern_compute.h)
+   File: csc_intern_io.c  (sopalin/src/csc_intern_io.c)
+   File: csc_intern_io.h  (sopalin/src/csc_intern_io.h)
+   File: csc_intern_solve.h  (sopalin/src/csc_intern_solve.h)
+   File: csc_intern_updown.c  (sopalin/src/csc_intern_updown.c)
+   File: csc_intern_updown.h  (sopalin/src/csc_intern_updown.h)
+   File: csc_utils.c  (sopalin/src/csc_utils.c)
+   File: csc_utils.h  (sopalin/src/csc_utils.h)
+   File: Csc2solv_cblk  (sopalin/src/csc_intern_solve.c)
+   File: cscd_utils.c  (sopalin/src/cscd_utils.c)
+   File: cscd_utils.h  (sopalin/src/cscd_utils.h)
+   File: cscd_utils_intern.h  (sopalin/src/cscd_utils_intern.h)
+   File: debug_dump.c  (sopalin/src/debug_dump.c)
+   File: debug_dump.h  (sopalin/src/debug_dump.h)
+   File: dynsched.h  (sopalin/src/dynsched.h)
+   File: Functions declarations  (sopalin/src/raff.c)
+   File: murge.c  (sopalin/src/murge.c)
+   File: murge_defines.h  (sopalin/src/murge_defines.h)
+   File: ooc.c  (sopalin/src/ooc.c)
+   File: PaStiX interface  (sopalin/src/pastix.h)
+   File: PaStiX specific addons to Murge  (sopalin/src/murge_pastix.h)
+   File: pastix.c  (sopalin/src/pastix.c)
+   File: pastix_data_t  (sopalin/src/pastixstr.h)
+   File: pastix_fortran.c  (sopalin/src/pastix_fortran.c)
+   File: pastix_fortran.c  (sopalin/src/cscd_utils_fortran.c)
+   File: sopalin_compute.c  (sopalin/src/sopalin_compute.c)
+   File: sopalin_compute.h  (sopalin/src/sopalin_compute.h)
+   File: sopalin_define.h  (sopalin/src/sopalin_define.h)
+   File: sopalin_init.c  (sopalin/src/sopalin_init.c)
+   File: sopalin_launch_thread:  (sopalin/src/sopalin_thread.c)
+   File: sopalin_option.c  (sopalin/src/sopalin_option.h)
+   File: sopalin_option.c  (sopalin/src/sopalin_option.c)
+   File: sopalin_sendrecv.c  (sopalin/src/sopalin_sendrecv.c)
+   File: sopalin_thread.h  (sopalin/src/sopalin_thread.h)
+   File: sopalin_time.h  (sopalin/src/sopalin_time.h)
+   File: sopalin3d.c  (sopalin/src/sopalin3d.c)
+   File: sopalin3d.h  (sopalin/src/sopalin3d.h)
+   File: starpu_kernels.c  (sopalin/src/starpu_kernels.c)
+   File: starpu_submit_tasks.c  (sopalin/src/starpu_submit_tasks.c)
+   File: tools.c  (sopalin/src/tools.c)
+   File: tools.h  (sopalin/src/tools.h)
+   File: updo.c  (sopalin/src/updo.c)
+   File: updo_sendrecv.c  (sopalin/src/updo_sendrecv.c)
+   }  # Group: Sopalin
+
+File: To use PaStiX through PETSc  (README_PETSC.txt)
+
+Group: Index  {
+
+   Index: Everything
+   Class Index: Classes
+   Constant Index: Constants
+   File Index: Files
+   Function Index: Functions
+   Macro Index: Macros
+   Type Index: Types
+   Variable Index: Variables
+   }  # Group: Index
+

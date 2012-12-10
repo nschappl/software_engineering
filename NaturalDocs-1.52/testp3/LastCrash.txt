@@ -1,0 +1,22 @@
+Crash Message:
+
+   Can't locate object method "OnCode" via package "NaturalDocs::Parser" at /home/scott/Desktop/NaturalDocs-1.52/Modules/NaturalDocs/Languages/Simple.pm line 285, <SOURCEFILEHANDLE> line 32.
+
+Current Action:
+
+   Parsing /home/scott/Desktop/pastix_release_3725/src/blend/src/bulles.c
+
+Natural Docs version 1.52
+Perl version 5.14.2 on linux
+
+Command Line:
+
+   -i ../pastix_release_3725/ -o FramedHTML test3 -p testp3
+
+Stack Trace:
+
+   NaturalDocs::Error::CatchDeath, called from
+   NaturalDocs::Languages::Simple::ParseFile, line 285, called from
+   NaturalDocs::Parser::Parse, line 335, called from
+   NaturalDocs::Parser::ParseForInformation, line 95, called from
+   (eval), line 320 of ./NaturalDocs
