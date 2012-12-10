@@ -124,10 +124,22 @@ $repo = $fggitclass->getRepo($_GET['proj_name']);
                                 system('sudo mkdir /var/server_files/tracked_files/'.$_GET['proj_name'].'-data');
                                 system('sudo perl /var/www/NaturalDocs-1.52/NaturalDocs -i /var/server_files/tracked_projects/'.$_GET['proj_name'].' -o FramedHTML /var/server_files/tracked_files/'.$_GET['proj_name'].'-html -p /var/server_files/tracked_files/'.$_GET['proj_name'].'-data > /dev/null');
                                 system('sudo cp -R /var/server_files/tracked_files/'.$_GET['proj_name'].'-html /var/www/tracked');
-                                exit();
-                                $file_contents = file_get_contents('/var/server_files/tracked_files/'.$_GET['proj_name'].'-html/index.html');
-                                if (preg_match("/DOCUMENTATION MISSING/i", $file_contents)){
-                                    echo '<h4 class="alert_warning">Documentation Missing.  Check Below for Details.</h4>';
+								$path = '/var/server_files/tracked_files/'.$_GET['proj_name'].'-html/files/';
+								$is_bad = false;
+								$it = new RecursiveDirectoryIterator($path);
+								foreach(new RecursiveIteratorIterator($it) as $file)
+								{
+									$file_contents = file_get_contents($file);
+									$pos = strpos($file_contents, "DOCUMENTATION MISSING");
+									if ($pos != false){
+										$is_bad = true;
+										break;
+									}
+								}
+
+                                
+                                if($is_bad == true){
+                                	echo '<h4 class="alert_error">Documentation Missing.  Check Below for Details.</h4>';
                                 }
                                 else{
                                     echo '<h4 class="alert_success">All Code is Documented.  See Resulting Documentation Below.</h4>';
