@@ -342,7 +342,7 @@
                     <header><h3>GitHub Authentication</h3></header>
                     <div class="module_content">
 						<img width="180px" src="./images/github-logo.png"><img style="float: right;" width="90px" src="<?php echo $general_info['avatar_url'];?>">
-						<br />
+						<br /><br />
 						<h4 class="alert_success">You are successfully logged into GitHub as <?php echo $general_info['login'];?>
 							<table style="font-size: 14px; padding-left: 10px;">
 								<tr>
