@@ -293,7 +293,7 @@
 			<li class="icn_view_users"><a href="#">Action 2</a></li>
 			<li class="icn_profile"><a href="#">Action 3</a></li>
 		</ul>
-
+		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 		<footer>
 			<hr />
 			<p><strong>Copyright &copy; Booz Allen Hamilton 2012</strong></p>
@@ -325,7 +325,7 @@
                 <article id="github_success" class="module width_half">
                     <header><h3>GitHub Authentication</h3></header>
                     <div class="module_content">
-						<img width="180px" src="./images/github-logo.png"><img style="float: right;" src="<?php echo $general_info['avatar_url'];?>">
+						<img width="180px" src="./images/github-logo.png"><img style="float: right;" width="90px" src="<?php echo $general_info['avatar_url'];?>">
 						<br />
 						<h4 class="alert_success">You are successfully logged into GitHub as <?php echo $general_info['login'];?>
 							<table style="font-size: 14px; padding-left: 10px;">
@@ -359,8 +359,14 @@
 								echo '<table class="table table-bordered">';
 								foreach($repositories as $repo) {
 									echo '<tr>';
-									echo '<td class="proj_name"><b>'.$repo['name'].'</b></td>';
-									echo '<td style="padding-left: 200px;"><a class="add_button button small blue" href="#"><span>Add</span></a></td>'; 
+									if (is_dir('/var/server_files/tracked_projects/'.$repo['name'])){
+										echo '<td class="proj_name"><b><a href="./doc_dashboard.php?proj_name='.$repo['name'].'">'.$repo['name'].'</a></b></td>';
+										echo '<td style="padding-left: 200px;">THE PROJECT WAS CLONED ALREADY</td>';
+									}
+									else{
+										echo '<td class="proj_name"><b>'.$repo['name'].'</b></td>';
+										echo '<td style="padding-left: 200px;"><a class="add_button button small blue" href="#"><span>Add</span></a></td>';
+									}
 									echo '<td class="hidden">'.$repo['archive_url'].'</td>';
 									echo '<td class="hidden">'.$general_info['login'].'</td>';
       								echo '</tr>';
@@ -376,7 +382,7 @@
 		<article id="track_project" class="module width_full glowme">
 			<header><h3>Track New Project</h3><img id="x" src="./images/xout.png" style="float: right;" width="25px" /></header>
 				<div class="module_content">
-					<form action="" method="post">
+					<form action="./project_dashboard.php" method="post">
 						<input type="hidden" name="submitted" id="submitted" value="1"/>
 						<input type="hidden" id="repo_name" name="repo_name"  value='' />
 						<input type="hidden" id="repo_archive_url" name="repo_archive_url"  value='' />
