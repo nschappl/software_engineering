@@ -143,15 +143,8 @@ class gitclass {
                 $url = explode("{",$repo['url']);
 
                 mkdir('/var/server_files/tracked_projects/'.$repo['repo_name'], 0777);
-
-                system('curl -H "Authorization: token '.$token.'" -L -o /var/server_files/tracked_projects/'.$file_name.'\
-    '.$url[0].'tarball');
-                system('tar -xzf /var/server_files/tracked_projects/'.$file_name.' -C /var/server_files/tracked_projects/'.$repo['repo_name'].'');
-                
-                /* Run NaturalDocs
-                system("/var/www/Natural-Docs-1.52-a/NaturalDocs -i ".
-        <root directory>/Natural-Docs-1.52-a/NaturalDocs -i <project source directory> -o FramedHTML <project-name>-html -p <project-name>-data      */          
-                
+                system('curl -H "Authorization: token '.$token.'" -L -o /var/server_files/tracked_projects/'.$file_name.' '.$url[0].'tarball');
+                system('tar -xzf /var/server_files/tracked_projects/'.$file_name.' -C /var/server_files/tracked_projects/'.$repo['repo_name'].''); 
             }
         }
 

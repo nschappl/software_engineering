@@ -33,7 +33,6 @@ if(!$fgmembersite->CheckLogin())
 
 
 <body>
-
 	<header id="header">
 		<hgroup>
 			<h1 class="site_title"><a href="index.php">Easy Doc</a></h1>
@@ -97,7 +96,18 @@ if(!$fgmembersite->CheckLogin())
 		<article class="module width_full">
 			<header><h3>Project Documentation</h3></header>
 				<div class="module_content">
-                                    <p>This is where all of the Natural Doc Documentation will go <br /><br />Boom bitches <br /><br /></p>
+                    <?php
+                    if(isset($_GET['proj_name'])){
+                        if (!is_dir('/var/www/tracked/'.$_GET['proj_name'].'-html')){
+                            mkdir('/var/www/tracked/'.$_GET['proj_name'].'-html');
+                            mkdir('/var/www/tracked/'.$_GET['proj_name'].'-data');
+                            system('/var/www/NaturalDocs-1.52/NaturalDocs -i /var/server_files/tracked_projects/'.$_GET['proj_name'].' -o FramedHTML /var/www/tracked/'.$_GET['proj_name'].'-html -p /var/www/tracked/'.$_GET['proj_name'].'-data');
+                        }
+                        echo "<iframe src = 'tracked/".$_GET['proj_name']."-html/index.html'>";
+                        echo "</iframe>";
+                    }
+                    
+                    ?>
 				</div>
 			<footer>
 			</footer>

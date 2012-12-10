@@ -108,6 +108,15 @@ execute "mkdir server-files" do
   end
 end
 
+execute "mkdir tracked-files" do
+  begin
+    command "sudo mkdir /var/www/tracked/"
+    command "sudo chown www-data.www-data /var/www/tracked/"
+  rescue Exception
+    print "Directory already exists"
+  end
+end
+
 apache_module "php5" do
   case node['platform']
   when "redhat","centos","scientific","amazon","fedora","freebsd"
