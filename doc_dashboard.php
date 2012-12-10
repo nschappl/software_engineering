@@ -116,10 +116,24 @@ $repo = $fggitclass->getRepo($_GET['proj_name']);
                 <article class="module width_half">
                     <header><h3>Documentation Status</h3></header>
                     <div class="module_content">
-                        <h4 class="alert_info">This could be an informative message.</h4>
-                        <h4 class="alert_warning">A Warning Alert</h4>
-                        <h4 class="alert_error">An Error Message</h4>
-                        <h4 class="alert_success">A Success Message</h4>
+                        <?php
+                            if(isset($_GET['proj_name'])){
+                                system('sudo rm -r /var/server_files/tracked_files/*');
+                                system('sudo rm -r /var/www/tracked/*');
+                                system('sudo mkdir /var/server_files/tracked_files/'.$_GET['proj_name'].'-html');
+                                system('sudo mkdir /var/server_files/tracked_files/'.$_GET['proj_name'].'-data');
+                                system('sudo perl /var/www/NaturalDocs-1.52/NaturalDocs -i /var/server_files/tracked_projects/'.$_GET['proj_name'].' -o FramedHTML /var/server_files/tracked_files/'.$_GET['proj_name'].'-html -p /var/server_files/tracked_files/'.$_GET['proj_name'].'-data > /dev/null');
+                                system('sudo cp -R /var/server_files/tracked_files/'.$_GET['proj_name'].'-html /var/www/tracked');
+                                exit();
+                                $file_contents = file_get_contents('/var/server_files/tracked_files/'.$_GET['proj_name'].'-html/index.html');
+                                if (preg_match("/DOCUMENTATION MISSING/i", $file_contents)){
+                                    echo '<h4 class="alert_warning">Documentation Missing.  Check Below for Details.</h4>';
+                                }
+                                else{
+                                    echo '<h4 class="alert_success">All Code is Documented.  See Resulting Documentation Below.</h4>';
+                                }
+                            }
+                        ?>
                     </div>
                 </article>
 				
@@ -131,14 +145,6 @@ $repo = $fggitclass->getRepo($_GET['proj_name']);
 				<div class="module_content">
                     <?php
                     if(isset($_GET['proj_name'])){
-                        system('sudo rm -r /var/server_files/tracked_files/*');
-                        system('sudo rm -r /var/www/tracked/*');
-                        system('sudo mkdir /var/server_files/tracked_files/'.$_GET['proj_name'].'-html');
-                        system('sudo mkdir /var/server_files/tracked_files/'.$_GET['proj_name'].'-data');
-                        system('sudo perl /var/www/NaturalDocs-1.52/NaturalDocs -i /var/server_files/tracked_projects/'.$_GET['proj_name'].' -o FramedHTML /var/server_files/tracked_files/'.$_GET['proj_name'].'-html -p /var/server_files/tracked_files/'.$_GET['proj_name'].'-data > /dev/null');
-                        system('sudo cp -R /var/server_files/tracked_files/'.$_GET['proj_name'].'-html /var/www/tracked');
-
-
                         //if ((!is_dir('/var/server_files/tracked_files/'.$_GET['proj_name'].'-html') or !is_dir('/var/server_files/tracked_files/'.$_GET['proj_name'].'-data'))){
                             /*mkdir('/var/server_files/tracked_files/'.$_GET['proj_name'].'-html', 0777);
                             mkdir('/var/server_files/tracked_files/'.$_GET['proj_name'].'-data', 0777);
