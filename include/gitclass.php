@@ -68,8 +68,7 @@ class gitclass {
 
     function removeRepo()
     {
-
-        if(isset($_POST['remove_sub']))
+        if(!isset($_POST['remove_sub']))
         {
             return false;
         }
@@ -82,19 +81,15 @@ class gitclass {
 
         if($_POST['repo_name'])
         {
-            $remove_query = 'DELETE FROM'.$this->tablename.' WHERE repo_name="'.$_POST['repo_name'].'"';
-
-
-            if(!mysql_query( $insert_query, $this->connection))
+            $remove_query = 'DELETE FROM '.$this->tablename.' WHERE repo_name="'.$_POST['repo_name'].'"';
+           
+            if(!mysql_query( $remove_query, $this->connection))
             {
                 $this->HandleDBError("Error inserting data to the table\nquery:$insert_query");
                 return false;
 
             }
         }
-
-
-
     }
     
     function getRepos() 
