@@ -130,6 +130,8 @@
 				$("#github_projects").addClass("glowme");
 			});
 			
+			$("a")
+			
 			
 			
 			<?php
@@ -247,6 +249,10 @@
 		.button.blue {
 			background-color: #00ADEE;
 		}
+		
+		.button.red {
+			background-color: #e62727;
+		}
 	</style>
 
 </head>
@@ -361,7 +367,7 @@
 									echo '<tr>';
 									if (is_dir('/var/server_files/tracked_projects/'.$repo['name'])){
 										echo '<td class="proj_name"><b><a href="./doc_dashboard.php?proj_name='.$repo['name'].'">'.$repo['name'].'</a></b></td>';
-										echo '<td style="padding-left: 200px;">THE PROJECT WAS CLONED ALREADY</td>';
+										echo '<td style="padding-left: 200px;"><a class="add_button button small red" href="#" onclick="fggitclass->removeRepo('.$repo['name'].');"><span>Remove</span></a></td>';
 									}
 									else{
 										echo '<td class="proj_name"><b>'.$repo['name'].'</b></td>';
