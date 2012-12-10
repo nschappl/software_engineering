@@ -114,6 +114,40 @@ class gitclass {
     
     }
 
+    function getRepo($project_name)
+    {
+        if(!$this->DBLogin())
+        {
+            $this->HandleError("Database login failed!");
+            return false;
+        }
+
+        if($project_name)
+        {
+            $select = 'select * from '.$this->tablename.' WHERE repo_name="'.$project_name.'"';
+
+            $result = mysql_query( $select, $this->connection);
+            
+            if(!$result)
+            {
+                $this->HandleDBError("Error inserting data to the table\nquery:$insert_query");
+                return false;
+
+            } else {
+
+                $data = array();
+                while($row = mysql_fetch_assoc($result))
+                {
+                    $data[] = $row;
+                }
+
+                return $data;
+            }
+
+        }
+
+    }
+
     function cloneRepos()
     {
 
