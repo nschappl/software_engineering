@@ -90,7 +90,7 @@
 			
 			$(".add_button").click(function() {
 				$(".proj_name").removeClass("redish");
-				$(this).parent().prev().addClass("redish");
+				$(this).parent().parent().addClass("redish");
 				$("#track_project").hide();
 				$("#title").val("");
 				$("#client").val("");
@@ -390,7 +390,7 @@
 								foreach($repositories as $repo) {
 									echo '<tr>';
 									if (is_dir('/var/server_files/tracked_projects/'.$repo['name'])){
-										echo 	'<td class="proj_name"><b><a style="color:#00ADEE; cursor:pointer;" "href="./doc_dashboard.php?proj_name='.$repo['name'].'">'.$repo['name'].'</a></b></td>';
+										echo 	'<td class="proj_name"><b><a style="color:red; text-decoration: underline; cursor:pointer;" href="./doc_dashboard.php?proj_name='.$repo['name'].'">'.$repo['name'].'</a></b></td>';
 										echo 	'<td style="padding-left: 200px;">
 													<form action="./project_dashboard.php" method="post">
 														<input style="display: none;" type="hidden" name="repo_name" value="'.$repo['name'].'">
