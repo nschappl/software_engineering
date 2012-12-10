@@ -367,7 +367,7 @@
 									echo '<tr>';
 									if (is_dir('/var/server_files/tracked_projects/'.$repo['name'])){
 										echo '<td class="proj_name"><b><a href="./doc_dashboard.php?proj_name='.$repo['name'].'">'.$repo['name'].'</a></b></td>';
-										echo '<td style="padding-left: 200px;"><a class="add_button button small red" href="#" onclick="fggitclass->removeRepo('.$repo['name'].');"><span>Remove</span></a></td>';
+										echo '<td style="padding-left: 200px;"><a class="button small red" href="#" onclick="fggitclass->removeRepo('.$repo['name'].');"><span>Remove</span></a></td>';
 									}
 									else{
 										echo '<td class="proj_name"><b>'.$repo['name'].'</b></td>';
