@@ -131,12 +131,22 @@ $repo = $fggitclass->getRepo($_GET['proj_name']);
 				<div class="module_content">
                     <?php
                     if(isset($_GET['proj_name'])){
-                        if ((!is_dir('/var/www/tracked/'.$_GET['proj_name'].'-html') or !is_dir('/var/www/tracked/'.$_GET['proj_name'].'-data'))){
-                            mkdir('/var/www/tracked/'.$_GET['proj_name'].'-html');
-                            mkdir('/var/www/tracked/'.$_GET['proj_name'].'-data');
-                            system('/var/www/NaturalDocs-1.52/NaturalDocs -i /var/server_files/tracked_projects/'.$_GET['proj_name'].' -o FramedHTML /var/www/tracked/'.$_GET['proj_name'].'-html -p /var/www/tracked/'.$_GET['proj_name'].'-data');
-                        }
-                        echo "<iframe src = 'tracked/".$_GET['proj_name']."-html/index.html'>";
+                        system('sudo rm -r /var/server_files/tracked_files/*');
+                        system('sudo rm -r /var/www/tracked/*');
+                        system('sudo mkdir /var/server_files/tracked_files/'.$_GET['proj_name'].'-html');
+                        system('sudo mkdir /var/server_files/tracked_files/'.$_GET['proj_name'].'-data');
+                        system('sudo perl /var/www/NaturalDocs-1.52/NaturalDocs -i /var/server_files/tracked_projects/'.$_GET['proj_name'].' -o FramedHTML /var/server_files/tracked_files/'.$_GET['proj_name'].'-html -p /var/server_files/tracked_files/'.$_GET['proj_name'].'-data > /dev/null');
+                        system('sudo cp -R /var/server_files/tracked_files/'.$_GET['proj_name'].'-html /var/www/tracked');
+
+
+                        //if ((!is_dir('/var/server_files/tracked_files/'.$_GET['proj_name'].'-html') or !is_dir('/var/server_files/tracked_files/'.$_GET['proj_name'].'-data'))){
+                            /*mkdir('/var/server_files/tracked_files/'.$_GET['proj_name'].'-html', 0777);
+                            mkdir('/var/server_files/tracked_files/'.$_GET['proj_name'].'-data', 0777);
+                            system('sudo perl /var/www/NaturalDocs-1.52/NaturalDocs -i /var/server_files/tracked_projects/'.$_GET['proj_name'].' -o FramedHTML /var/server_files/tracked_files/'.$_GET['proj_name'].'-html -p /var/server_files/tracked_files/'.$_GET['proj_name'].'-data > /dev/null');
+                        
+                        system('sudo cp -R /var/server_files/tracked_files/'.$_GET['proj_name'].'-html /var/www/tracked');
+                        */
+                        echo "<iframe src='tracked/".$_GET['proj_name']."-html/index.html' style='width:100%;height:100%;''>";
                         echo "</iframe>";
                     }
                     
