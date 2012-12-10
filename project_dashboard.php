@@ -248,10 +248,14 @@
 		
 		.button.blue {
 			background-color: #00ADEE;
+			width: 70px;
+			text-align: center;
 		}
 		
 		.button.red {
 			background-color: #e62727;
+			width: 70px;
+			text-align: center;
 		}
 	</style>
 
