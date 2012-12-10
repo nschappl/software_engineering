@@ -1,0 +1,108 @@
+Format: 1.52
+
+
+# You can add a title and sub-title to your menu like this:
+# Title: [project name]
+# SubTitle: [subtitle]
+
+# You can add a footer to your documentation like this:
+# Footer: [text]
+# If you want to add a copyright notice, this would be the place to do it.
+
+# You can add a timestamp to your documentation like one of these:
+# Timestamp: Generated on month day, year
+# Timestamp: Updated mm/dd/yyyy
+# Timestamp: Last updated mon day
+#
+#   m     - One or two digit month.  January is "1"
+#   mm    - Always two digit month.  January is "01"
+#   mon   - Short month word.  January is "Jan"
+#   month - Long month word.  January is "January"
+#   d     - One or two digit day.  1 is "1"
+#   dd    - Always two digit day.  1 is "01"
+#   day   - Day with letter extension.  1 is "1st"
+#   yy    - Two digit year.  2006 is "06"
+#   yyyy  - Four digit year.  2006 is "2006"
+#   year  - Four digit year.  2006 is "2006"
+
+
+# --------------------------------------------------------------------------
+# 
+# Cut and paste the lines below to change the order in which your files
+# appear on the menu.  Don't worry about adding or removing files, Natural
+# Docs will take care of that.
+# 
+# You can further organize the menu by grouping the entries.  Add a
+# "Group: [name] {" line to start a group, and add a "}" to end it.
+# 
+# You can add text and web links to the menu by adding "Text: [text]" and
+# "Link: [name] ([URL])" lines, respectively.
+# 
+# The formatting and comments are auto-generated, so don't worry about
+# neatness when editing the file.  Natural Docs will clean it up the next
+# time it is run.  When working with groups, just deal with the braces and
+# forget about the indentation and comments.
+# 
+# --------------------------------------------------------------------------
+
+
+File: Graphic  (dist/pgf-core.js)
+File: Graphic.CanvasRenderer  (dist/pgf-renderer.js)
+
+Group: Samples  {
+
+   File: CircleTool  (samples/tools/circle_tool.js)
+   File: LineTool  (samples/tools/line_tool.js)
+   File: PolylineTool  (samples/tools/polyline_tool.js)
+   File: RectangleTool  (samples/tools/rectangle_tool.js)
+   }  # Group: Samples
+
+Group: Src  {
+
+   Group: Base  {
+
+      File: EventNotifier  (src/base/event_notifier.js)
+      File: Graphic  (src/base/graphic.js)
+      File: Matrix  (src/base/matrix.js)
+      }  # Group: Base
+
+   Group: Renderer  {
+
+      File: AbstractRender  (src/renderer/abstract.js)
+      File: CanvasRenderer  (src/renderer/canvas.js)
+      File: SVGRenderer  (src/renderer/svg.js)
+      File: VMLRenderer  (src/renderer/vml.js)
+      }  # Group: Renderer
+
+   Group: Shape  {
+
+      File: Circle  (src/shape/circle.js)
+      File: Ellipse  (src/shape/ellipse.js)
+      File: Group  (src/shape/group.js)
+      File: Image  (src/shape/image.js)
+      File: Line  (src/shape/line.js)
+      File: Polygon  (src/shape/polygon.js)
+      File: Polyline  (src/shape/polyline.js)
+      File: Rectangle  (src/shape/rect.js)
+      File: Shape  (src/shape/shape.js)
+      File: Text  (src/shape/text.js)
+      }  # Group: Shape
+
+   Group: Tools  {
+
+      File: DrawingTool  (src/tools/drawing.js)
+      File: HighlightTool  (src/tools/highlight.js)
+      File: SelectTool  (src/tools/select.js)
+      File: Tool  (src/tools/tool.js)
+      File: ToolManager  (src/tools/tool_manager.js)
+      }  # Group: Tools
+
+   }  # Group: Src
+
+Group: Index  {
+
+   Index: Everything
+   Class Index: Classes
+   Function Index: Functions
+   }  # Group: Index
+
