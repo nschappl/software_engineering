@@ -296,7 +296,7 @@
           <article id="github_login_module" class="module width_half">
                     <header><h3>GitHub Authentication</h3></header>
                     <div class="module_content">
-						<img width="180px" src="./images/github-logo.png">
+						<img width="180px" src="./images/github-logo.png"> 
 						<br />
 						<h4 class="alert_error">You are currently not connected to GitHub.  Connect below!</h4>
 						<br />
@@ -315,9 +315,27 @@
                 <article id="github_success" class="module width_half">
                     <header><h3>GitHub Authentication</h3></header>
                     <div class="module_content">
-						<img width="180px" src="./images/github-logo.png">
+						<img width="180px" src="./images/github-logo.png"><img style="float: right;" src="<?php echo $general_info['avatar_url'];?>">
 						<br />
-						<h4 class="alert_success">You are successfully logged into GitHub as <?php echo $general_info['login'];?> <a style="float: right; color: #0099FF; cursor: pointer; margin-right:5px; font-weight: 400;" id="gh_logout">Logout</a></h4>
+						<h4 class="alert_success">You are successfully logged into GitHub as <?php echo $general_info['login'];?>
+							<table style="font-size: 14px; padding-left: 10px;">
+								<tr>
+									<td>Location:</td>
+									<td><?php echo $general_info['location'];?></td>
+								</tr>
+								<tr>
+									<td>Private Repos:</td>
+									<td><?php echo $general_info['total_private_repos'];?></td>
+								</tr>
+								<tr>
+									<td>Public Repos:</td>
+									<td><?php echo $general_info['public_repos'];?></td>
+								</tr>
+							</table>
+						</h4>
+						<br />
+							<div style="width: 40px; margin: 0 auto;"><a style=" color: #0099FF; cursor: pointer; font-weight: bold; font-size: 16px;" id="gh_logout">Logout</a></div>
+
                     </div>
                 </article>
 
@@ -366,7 +384,7 @@
 	
 							<fieldset>
 								<label>Project Summary</label>
-								<textarea id="summary" name="summary" rows="6"></textarea>
+								<textarea id="summary" name="summary" rows="4"></textarea>
 							</fieldset>
 				</div>
 						<footer>
