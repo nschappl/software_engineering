@@ -1,11 +1,17 @@
 <?PHP
 require_once("./include/membersite_config.php");
+require_once("./include/gitclass_config.php");
+
 
 if(!$fgmembersite->CheckLogin())
 {
     $fgmembersite->RedirectToURL("./login.php");
     exit;
 }
+
+$repo = $fggitclass->getRepo($_GET['proj_name']);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +55,7 @@ if(!$fgmembersite->CheckLogin())
 			<a class="logout_user" href="logout.php" title="Logout">Logout</a>
 		</div>
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="index.html">Projects</a> <div class="breadcrumb_divider"></div> <a class="current">Project_Name</a></article>
+			<article class="breadcrumbs"><a href="index.html">Projects</a> <div class="breadcrumb_divider"></div> <a class="current"><?php echo $_GET['proj_name']; ?></a></article>
 		</div>
 	</section><!-- end of secondary bar -->
 
@@ -83,7 +89,31 @@ if(!$fgmembersite->CheckLogin())
 
 	<section id="main" class="column">
 
-                <article class="module width_full">
+                <article class="module width_half">
+                    <header><h3>Project Information</h3></header>
+                    <div class="module_content">
+						<table>
+							<tr>
+								<td><b>Name:</b></td>
+								<td style="padding-left:30px;"><?php echo $_GET['proj_name']; ?></td>
+							</tr>
+							<tr>
+								<td><b>GitHub Name:</b></td>
+								<td style="padding-left:30px;"><?php echo $repo[0]['proj_title']; ?></td>
+							</tr>
+							<tr>
+								<td><b>Client:</b></td>
+								<td style="padding-left:30px;"><?php echo $repo[0]['client']; ?></td>
+							</tr>
+							<tr>
+								<td><b>Project Summary:</b></td>
+								<td style="padding-left:30px;"><?php echo $repo[0]['exec_summ']; ?></td>
+							</tr>
+						</table>
+                    </div>
+                </article>
+	
+                <article class="module width_half">
                     <header><h3>Documentation Status</h3></header>
                     <div class="module_content">
                         <h4 class="alert_info">This could be an informative message.</h4>
@@ -92,6 +122,9 @@ if(!$fgmembersite->CheckLogin())
                         <h4 class="alert_success">A Success Message</h4>
                     </div>
                 </article>
+				
+				<div class="clear"></div>
+
 
 		<article class="module width_full">
 			<header><h3>Project Documentation</h3></header>
