@@ -8,7 +8,7 @@
 		$fgmembersite->RedirectToURL("./login.php");
 		exit();
 	}
-    
+    var_dump($_POST);
     require_once("./include/gitclass_config.php");
 
   	if(isset($_POST['submitted'])) {
@@ -135,7 +135,9 @@
 				$("#github_projects").addClass("glowme");
 			});
 			
-			$("a")
+			$(".submit_form").click(function(){
+				$(this).parent().submit();
+			 });
 			
 			
 			
@@ -380,7 +382,7 @@
 													<form action="./project_dashboard.php" method="post">
 														<input type="hidden" name="repo_name" value="'.$repo['name'].'">
 														<input type="hidden" name="remove_sub" value="1">
-														<input type="submit" value = "Remove">
+														<a class="submit_form button small red" href="#"><span>Remove</span></a>
 													</form>
 												</td>';
 									}
