@@ -138,6 +138,10 @@
 				$(this).parent().submit();
 			 });
 			
+			$("#gh_connect").click(function(){
+				$("#gh_connect_form").submit();
+			 });
+			
 			
 			
 			<?php
@@ -258,6 +262,12 @@
 			text-align: center;
 		}
 		
+		.button.bluer {
+			background-color: #00ADEE;
+			width: 130px;
+			text-align: center;
+		}
+		
 		.button.red {
 			background-color: #e62727;
 			width: 70px;
@@ -326,12 +336,14 @@
 						<br />
 						<h4 class="alert_error">You are currently not connected to GitHub.  Connect below!</h4>
 						<br />
-						<form action="https://github.com/login/oauth/authorize" method="GET">
+						<form id="gh_connect_form" action="https://github.com/login/oauth/authorize" method="GET">
 							<input type="hidden" name="client_id" value="d12c2803a9453ba44900" >
 							<input type="hidden" name="redirect_uri" value="http://127.0.0.1:8080/project_dashboard.php">
 							<input type="hidden" name="state" value="hollaatyourboy">
 							<input type="hidden" name="scope" value="repo, user">
-							<input type="submit" value="Connect to GitHub" >
+							<div style="width: 130px; margin: 0 auto;">
+								<a class="button small bluer" id="gh_connect" href="#"><span>Connect to GitHub</span></a>
+							</div>
 						</form>
 
                     </div>
@@ -360,7 +372,9 @@
 							</table>
 						</h4>
 						<br />
-							<div style="width: 40px; margin: 0 auto;"><a style=" color: #0099FF; cursor: pointer; font-weight: bold; font-size: 16px;" id="gh_logout">Logout</a></div>
+							<div style="width: 70px; margin: 0 auto;">
+								<a class="button small blue" id="gh_logout" href="#"><span>Logout</span></a>
+							</div>
 
                     </div>
                 </article>
@@ -376,7 +390,7 @@
 								foreach($repositories as $repo) {
 									echo '<tr>';
 									if (is_dir('/var/server_files/tracked_projects/'.$repo['name'])){
-										echo 	'<td class="proj_name"><b><a href="./doc_dashboard.php?proj_name='.$repo['name'].'">'.$repo['name'].'</a></b></td>';
+										echo 	'<td class="proj_name"><b><a style="color:#00ADEE; cursor:pointer;" "href="./doc_dashboard.php?proj_name='.$repo['name'].'">'.$repo['name'].'</a></b></td>';
 										echo 	'<td style="padding-left: 200px;">
 													<form action="./project_dashboard.php" method="post">
 														<input style="display: none;" type="hidden" name="repo_name" value="'.$repo['name'].'">
